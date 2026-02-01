@@ -1,207 +1,494 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
 <meta charset="UTF-8">
 <title>With You Photo Studio | Taunggyi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Fonts: Playfair Display (Titles), Inter (Body), Padauk (Myanmar) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Padauk:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-:root{
-  --gold:#c9a24d;
-  --text:#222;
-  --muted:#777;
-  --bg:#ffffff;
+/* --- VARIABLES --- */
+:root {
+  --primary-gold: #D4AF37;
+  --dark-bg: #1a1a1a;
+  --light-bg: #f9f9f9;
+  --text-dark: #333;
+  --text-light: #f4f4f4;
+  --transition: all 0.3s ease;
 }
 
-*{box-sizing:border-box;}
+/* --- RESET & BASE --- */
+* { box-sizing: border-box; }
 
-body{
-  margin:0;
-  font-family:'Inter', sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.7;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Padauk', sans-serif;
+  background: var(--light-bg);
+  color: var(--text-dark);
+  line-height: 1.8;
+  overflow-x: hidden;
 }
 
-header{
-  text-align:center;
-  padding:70px 20px 50px;
-  border-bottom:1px solid #eee;
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
 }
 
-header h1{
-  font-family:'Playfair Display', serif;
-  font-size:42px;
-  margin:0;
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+
+/* --- NAVIGATION --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-header span{ color:var(--gold); }
-
-header p{
-  color:var(--muted);
-  margin-top:12px;
-  font-size:16px;
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
 }
 
-section{
-  max-width:1100px;
-  margin:80px auto;
-  padding:0 20px;
+.logo span { color: var(--primary-gold); }
+
+.nav-links { display: flex; gap: 30px; }
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+.nav-links a:hover { color: var(--primary-gold); }
+
+/* --- HERO SECTION --- */
+.hero {
+  height: 85vh;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
 }
 
-h2{
-  font-family:'Playfair Display', serif;
-  font-size:30px;
-  margin-bottom:15px;
+.hero h1 {
+  font-size: clamp(40px, 5vw, 70px);
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease;
 }
 
-.gold-line{
-  width:60px;
-  height:3px;
-  background:var(--gold);
-  margin-bottom:30px;
+.hero p {
+  font-size: 18px;
+  max-width: 600px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  animation: fadeInUp 1s ease 0.3s backwards;
 }
 
-.about{
-  max-width:720px;
+.btn {
+  padding: 12px 35px;
+  background: var(--primary-gold);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  display: inline-block;
+  animation: fadeInUp 1s ease 0.6s backwards;
 }
 
-.filters{
-  margin-bottom:35px;
+.btn:hover {
+  background: #b59025;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-.filters button{
-  background:none;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  padding:7px 18px;
-  margin:0 6px 10px 0;
-  border-radius:20px;
-  cursor:pointer;
-  font-size:14px;
+/* --- SECTIONS COMMON --- */
+section {
+  padding: 80px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.filters button:hover{
-  background:var(--gold);
-  color:#fff;
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
 }
 
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:22px;
+.section-title h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
 }
 
-.gallery img{
-  width:100%;
-  border-radius:6px;
+.divider {
+  width: 80px;
+  height: 3px;
+  background: var(--primary-gold);
+  margin: 0 auto;
 }
 
-.contact{
-  text-align:center;
+/* --- ABOUT --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
 }
 
-.contact p{
-  margin:8px 0;
+.about-text p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
 }
 
-footer{
-  text-align:center;
-  padding:50px 20px;
-  border-top:1px solid #eee;
-  color:var(--muted);
-  font-size:14px;
+.about-img img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 20px 20px 0 var(--primary-gold);
+}
+
+/* --- GALLERY --- */
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: var(--transition);
+  color: #555;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--primary-gold);
+  border-color: var(--primary-gold);
+  color: #fff;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 350px;
+  background: #eee;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: var(--transition);
+  opacity: 0;
+}
+
+.gallery-item:hover .overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Animation for filtering */
+.gallery-item.hide {
+  display: none;
+}
+.gallery-item.show {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- CONTACT --- */
+.contact-section {
+  background: var(--dark-bg);
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.contact-section h2 { color: #fff; }
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 10px;
+  min-width: 250px;
+  transition: var(--transition);
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.1);
+}
+
+.contact-card i {
+  font-size: 30px;
+  color: var(--primary-gold);
+  margin-bottom: 15px;
+}
+
+/* --- FOOTER --- */
+footer {
+  background: #111;
+  color: #777;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 36px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img { display: none; /* simple fix for mobile layout */ }
+  .nav-links { display: none; } /* Simplified for this demo */
+  nav { justify-content: center; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header>
-  <h1>With You <span>Photo Studio</span></h1>
-  <p>Wedding • Pre-Wedding • Portrait • Birthday<br>Taunggyi</p>
-</header>
+<!-- NAVIGATION -->
+<nav>
+  <div class="logo">With You <span>Photo Studio</span></div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <h1>Capturing Moments,<br>Creating Memories.</h1>
+  <p>တောင်ကြီးမြို့ရှိ မင်္ဂလာဆောင်၊ Pre-Wedding နှင့် အမှတ်တရဓာတ်ပုံများကို စိတ်တိုင်းကျ ရိုက်ကူးပေးနေပါသည်။</p>
+  <a href="#contact" class="btn">Book Now</a>
+</section>
 
 <!-- ABOUT -->
-<section>
-  <h2>ကျွန်တော်တို့အကြောင်း</h2>
-  <div class="gold-line"></div>
-
-  <div class="about">
-    <p>
-      <strong>With You Photo Studio</strong> သည် တောင်ကြီးမြို့အခြေစိုက်
-      Professional Photography Studio ဖြစ်ပြီး မင်္ဂလာဆောင်၊ Pre-Wedding,
-      Portrait နှင့် Birthday အမှတ်တရဓာတ်ပုံများကို အထူးပြု ရိုက်ကူးပေးနေပါသည်။
-    </p>
-    <p>
-      သဘာဝအမူအရာ၊ စိတ်လှုပ်ရှားဖွယ် Moment များကို
-      အချိန်ကြာကြာတန်ဖိုးထားနိုင်မယ့် Color tone များဖြင့်
-      ရိုက်ကူးပေးခြင်းကို ကျွန်တော်တို့၏ အဓိကအယူအဆအဖြစ် လက်ခံထားပါသည်။
-    </p>
+<section id="about">
+  <div class="section-title">
+    <h2>ကျွန်တော်တို့အကြောင်း</h2>
+    <div class="divider"></div>
+  </div>
+  
+  <div class="about-grid">
+    <div class="about-text">
+      <h3>With You Photo Studio</h3>
+      <br>
+      <p>
+        <strong>With You Photo Studio</strong> သည် တောင်ကြီးမြို့အခြေစိုက် Professional Photography Studio ဖြစ်ပြီး 
+        မင်္ဂလာဆောင်၊ Pre-Wedding, Portrait နှင့် Birthday အမှတ်တရဓာတ်ပုံများကို အထူးပြု ရိုက်ကူးပေးနေပါသည်။
+      </p>
+      <p>
+        သဘာဝအမူအရာ (Candid Moments) များနှင့် စိတ်လှုပ်ရှားဖွယ် Moment များကို 
+        အချိန်ကြာကြာ တန်ဖိုးထားနိုင်မယ့် Color tone များဖြင့် ရိုက်ကူးပေးခြင်းကို 
+        ကျွန်တော်တို့၏ အဓိကအယူအဆအဖြစ် လက်ခံထားပါသည်။
+      </p>
+      <p style="color:var(--primary-gold); font-weight:600;">
+        "သင်တို့ရဲ့ အပျော်ရွှင်ရဆုံးအချိန်တွေကို မှတ်တမ်းတင်ပေးဖို့ ကျွန်တော်တို့ အသင့်ရှိပါတယ်။"
+      </p>
+    </div>
+    <div class="about-img">
+      <!-- Placeholder image for photographer/studio -->
+      <img src="https://images.unsplash.com/photo-1554048612-387768052bf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Camera Lens">
+    </div>
   </div>
 </section>
 
 <!-- GALLERY -->
-<section>
-  <h2>Our Works</h2>
-  <div class="gold-line"></div>
-
-  <div class="filters">
-    <button onclick="filterGallery('all')">All</button>
-    <button onclick="filterGallery('wedding')">Wedding</button>
-    <button onclick="filterGallery('prewedding')">Pre-Wedding</button>
-    <button onclick="filterGallery('portrait')">Portrait</button>
-    <button onclick="filterGallery('birthday')">Birthday</button>
+<section id="gallery">
+  <div class="section-title">
+    <h2>Our Works</h2>
+    <div class="divider"></div>
   </div>
 
-  <div class="gallery">
-    <!-- Wedding -->
-    <img src="images/wedding-01.jpg" data-cat="wedding">
-    <img src="images/wedding-02.jpg" data-cat="wedding">
+  <!-- Filter Buttons -->
+  <div class="gallery-controls">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('wedding-day', this)">Wedding Day</button>
+    <button class="filter-btn" onclick="filterGallery('prewedding', this)">Pre-Wedding</button>
+    <button class="filter-btn" onclick="filterGallery('portrait', this)">Portrait</button>
+    <button class="filter-btn" onclick="filterGallery('birthday', this)">Birthday</button>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-grid">
+    
+    <!-- Wedding Day (NEW) -->
+    <div class="gallery-item" data-cat="wedding-day">
+      <img src="https://images.unsplash.com/photo-1511285560982-1356c11d4606?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding Day">
+      <div class="overlay">
+        <h3>Wedding Ceremony</h3>
+        <p>Beautiful Moments</p>
+      </div>
+    </div>
+    <div class="gallery-item" data-cat="wedding-day">
+      <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding Couple">
+      <div class="overlay">
+        <h3>Wedding Day</h3>
+        <p>Taunggyi</p>
+      </div>
+    </div>
 
     <!-- Pre-Wedding -->
-    <img src="images/prewedding-01.jpg" data-cat="prewedding">
-    <img src="images/prewedding-02.jpg" data-cat="prewedding">
+    <div class="gallery-item" data-cat="prewedding">
+      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pre Wedding">
+      <div class="overlay">
+        <h3>Pre-Wedding</h3>
+        <p>Outdoor Session</p>
+      </div>
+    </div>
+    <div class="gallery-item" data-cat="prewedding">
+      <img src="https://images.unsplash.com/photo-1520854221256-17451cc330e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pre Wedding 2">
+      <div class="overlay">
+        <h3>Pre-Wedding</h3>
+        <p>Romantic Mood</p>
+      </div>
+    </div>
 
     <!-- Portrait -->
-    <img src="images/portrait-01.jpg" data-cat="portrait">
-    <img src="images/portrait-02.jpg" data-cat="portrait">
+    <div class="gallery-item" data-cat="portrait">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Portrait">
+      <div class="overlay">
+        <h3>Portrait</h3>
+        <p>Solo Shot</p>
+      </div>
+    </div>
 
     <!-- Birthday -->
-    <img src="images/birthday-01.jpg" data-cat="birthday">
-    <img src="images/birthday-02.jpg" data-cat="birthday">
+    <div class="gallery-item" data-cat="birthday">
+      <img src="https://images.unsplash.com/photo-1530103862676-de3c9da59af7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Birthday">
+      <div class="overlay">
+        <h3>Birthday</h3>
+        <p>Celebration</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact">
-  <h2>Contact</h2>
-  <div class="gold-line"></div>
+<section id="contact" class="contact-section">
+  <div class="section-title">
+    <h2>Contact Us</h2>
+    <div class="divider" style="background:#fff;"></div>
+  </div>
 
-  <p>📍 Taunggyi, Myanmar</p>
-  <p>📞 Phone / Viber / WhatsApp: <strong>09-XXXXXXXXX</strong></p>
-  <p>📷 Facebook: With You Photo Studio</p>
+  <div class="contact-info">
+    <div class="contact-card">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3>Location</h3>
+      <p>Taunggyi, Myanmar</p>
+    </div>
+    
+    <div class="contact-card">
+      <i class="fas fa-phone-alt"></i>
+      <h3>Phone / Viber</h3>
+      <p>09-XXXXXXXXX</p>
+    </div>
+
+    <div class="contact-card">
+      <i class="fab fa-facebook"></i>
+      <h3>Social Media</h3>
+      <p>With You Photo Studio</p>
+    </div>
+  </div>
 </section>
 
 <footer>
-  © With You Photo Studio — Taunggyi
+  <p>&copy; 2026 With You Photo Studio. All Rights Reserved.</p>
 </footer>
 
 <script>
-function filterGallery(category){
-  const images = document.querySelectorAll('.gallery img');
-  images.forEach(img => {
-    if(category === 'all' || img.dataset.cat === category){
-      img.style.display = 'block';
-    }else{
-      img.style.display = 'none';
+function filterGallery(category, btnElement) {
+  const items = document.querySelectorAll('.gallery-item');
+  const buttons = document.querySelectorAll('.filter-btn');
+
+  // Update active button state
+  buttons.forEach(btn => btn.classList.remove('active'));
+  btnElement.classList.add('active');
+
+  // Filter items
+  items.forEach(item => {
+    if (category === 'all' || item.getAttribute('data-cat') === category) {
+      item.classList.remove('hide');
+      item.classList.add('show');
+    } else {
+      item.classList.remove('show');
+      item.classList.add('hide');
     }
   });
 }
+
+// Add animation keyframes for hero text on load
+window.addEventListener('load', () => {
+    document.querySelector('.hero').classList.add('loaded');
+});
 </script>
 
 </body>
