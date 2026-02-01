@@ -1,184 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>With You Photo Studio | Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>With You Photo Studio | Taunggyi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --gold:#c9a24d;
-      --text:#222;
-      --muted:#777;
-      --bg:#ffffff;
-    }
+<style>
+:root{
+  --gold:#c9a24d;
+  --text:#222;
+  --muted:#777;
+  --bg:#ffffff;
+}
 
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:'Inter', sans-serif;
-      color:var(--text);
-      background:var(--bg);
-      line-height:1.7;
-    }
+*{box-sizing:border-box;}
 
-    header{
-      padding:60px 20px;
-      text-align:center;
-      border-bottom:1px solid #eee;
-    }
+body{
+  margin:0;
+  font-family:'Inter', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
 
-    header h1{
-      font-family:'Playfair Display', serif;
-      font-size:42px;
-      margin:0;
-    }
+header{
+  text-align:center;
+  padding:70px 20px 50px;
+  border-bottom:1px solid #eee;
+}
 
-    header span{
-      color:var(--gold);
-    }
+header h1{
+  font-family:'Playfair Display', serif;
+  font-size:42px;
+  margin:0;
+}
 
-    header p{
-      color:var(--muted);
-      margin-top:10px;
-    }
+header span{ color:var(--gold); }
 
-    .toggle{
-      margin-top:25px;
-    }
+header p{
+  color:var(--muted);
+  margin-top:12px;
+  font-size:16px;
+}
 
-    .toggle button{
-      background:none;
-      border:1px solid var(--gold);
-      color:var(--gold);
-      padding:6px 14px;
-      cursor:pointer;
-      margin:0 5px;
-      border-radius:20px;
-      font-size:14px;
-    }
+section{
+  max-width:1100px;
+  margin:80px auto;
+  padding:0 20px;
+}
 
-    section{
-      max-width:1000px;
-      margin:80px auto;
-      padding:0 20px;
-    }
+h2{
+  font-family:'Playfair Display', serif;
+  font-size:30px;
+  margin-bottom:15px;
+}
 
-    h2{
-      font-family:'Playfair Display', serif;
-      font-size:30px;
-      margin-bottom:20px;
-    }
+.gold-line{
+  width:60px;
+  height:3px;
+  background:var(--gold);
+  margin-bottom:30px;
+}
 
-    .gold-line{
-      width:60px;
-      height:3px;
-      background:var(--gold);
-      margin-bottom:30px;
-    }
+.about{
+  max-width:720px;
+}
 
-    .about p{
-      max-width:700px;
-    }
+.filters{
+  margin-bottom:35px;
+}
 
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:20px;
-    }
+.filters button{
+  background:none;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  padding:7px 18px;
+  margin:0 6px 10px 0;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:14px;
+}
 
-    .gallery img{
-      width:100%;
-      border-radius:4px;
-    }
+.filters button:hover{
+  background:var(--gold);
+  color:#fff;
+}
 
-    footer{
-      text-align:center;
-      padding:50px 20px;
-      border-top:1px solid #eee;
-      color:var(--muted);
-      font-size:14px;
-    }
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
 
-    .mm{display:none;}
-  </style>
+.gallery img{
+  width:100%;
+  border-radius:6px;
+}
+
+.contact{
+  text-align:center;
+}
+
+.contact p{
+  margin:8px 0;
+}
+
+footer{
+  text-align:center;
+  padding:50px 20px;
+  border-top:1px solid #eee;
+  color:var(--muted);
+  font-size:14px;
+}
+</style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
   <h1>With You <span>Photo Studio</span></h1>
-  <p>Founder & Photographer — Taunggyi, Myanmar</p>
-
-  <div class="toggle">
-    <button onclick="showEN()">English</button>
-    <button onclick="showMM()">မြန်မာ</button>
-  </div>
+  <p>Wedding • Pre-Wedding • Portrait • Birthday<br>Taunggyi</p>
 </header>
 
-<section class="about en">
-  <h2>About Me</h2>
+<!-- ABOUT -->
+<section>
+  <h2>ကျွန်တော်တို့အကြောင်း</h2>
   <div class="gold-line"></div>
-  <p>
-    I am a photographer and studio founder based in Taunggyi, Myanmar.  
-    I specialize in wedding, pre-wedding, and portrait photography, focusing on emotional authenticity and clean, timeless color tones.
-  </p>
-  <p>
-    Through founding and running <strong>With You Photo Studio</strong>, I have developed hands-on experience in visual storytelling, client communication, and creative business management.
-  </p>
-</section>
 
-<section class="about mm">
-  <h2>ကျွန်တော်အကြောင်း</h2>
-  <div class="gold-line"></div>
-  <p>
-    ကျွန်တော်သည် တောင်ကြီးမြို့အခြေစိုက် Photographer တစ်ဦးဖြစ်ပြီး  
-    <strong>With You Photo Studio</strong> ကို တည်ထောင်လုပ်ကိုင်နေသူ ဖြစ်ပါသည်။
-  </p>
-  <p>
-    မင်္ဂလာဆောင်၊ Pre-wedding နှင့် Portrait ဓာတ်ပုံများကို  
-    သဘာဝအမူအရာနှင့် အချိန်ကြာကြာခံမယ့် Color tone များဖြင့် ရိုက်ကူးပါသည်။
-  </p>
-</section>
-
-<section class="en">
-  <h2>Selected Works</h2>
-  <div class="gold-line"></div>
-  <div class="gallery">
-    <img src="images/Birthday-01.jpg">
-    <img src="images/photo2.jpg">
-    <img src="images/photo3.jpg">
-    <img src="images/photo4.jpg">
-    <img src="images/photo5.jpg">
-    <img src="images/photo6.jpg">
+  <div class="about">
+    <p>
+      <strong>With You Photo Studio</strong> သည် တောင်ကြီးမြို့အခြေစိုက်
+      Professional Photography Studio ဖြစ်ပြီး မင်္ဂလာဆောင်၊ Pre-Wedding,
+      Portrait နှင့် Birthday အမှတ်တရဓာတ်ပုံများကို အထူးပြု ရိုက်ကူးပေးနေပါသည်။
+    </p>
+    <p>
+      သဘာဝအမူအရာ၊ စိတ်လှုပ်ရှားဖွယ် Moment များကို
+      အချိန်ကြာကြာတန်ဖိုးထားနိုင်မယ့် Color tone များဖြင့်
+      ရိုက်ကူးပေးခြင်းကို ကျွန်တော်တို့၏ အဓိကအယူအဆအဖြစ် လက်ခံထားပါသည်။
+    </p>
   </div>
 </section>
 
-<section class="en">
-  <h2>Visual Philosophy</h2>
+<!-- GALLERY -->
+<section>
+  <h2>Our Works</h2>
   <div class="gold-line"></div>
-  <p>
-    My work emphasizes simplicity, emotional honesty, and consistency.  
-    I focus on natural expressions, balanced composition, and realistic skin tones, creating images that remain meaningful over time.
-  </p>
+
+  <div class="filters">
+    <button onclick="filterGallery('all')">All</button>
+    <button onclick="filterGallery('wedding')">Wedding</button>
+    <button onclick="filterGallery('prewedding')">Pre-Wedding</button>
+    <button onclick="filterGallery('portrait')">Portrait</button>
+    <button onclick="filterGallery('birthday')">Birthday</button>
+  </div>
+
+  <div class="gallery">
+    <!-- Wedding -->
+    <img src="images/wedding-01.jpg" data-cat="wedding">
+    <img src="images/wedding-02.jpg" data-cat="wedding">
+
+    <!-- Pre-Wedding -->
+    <img src="images/prewedding-01.jpg" data-cat="prewedding">
+    <img src="images/prewedding-02.jpg" data-cat="prewedding">
+
+    <!-- Portrait -->
+    <img src="images/portrait-01.jpg" data-cat="portrait">
+    <img src="images/portrait-02.jpg" data-cat="portrait">
+
+    <!-- Birthday -->
+    <img src="images/birthday-01.jpg" data-cat="birthday">
+    <img src="images/birthday-02.jpg" data-cat="birthday">
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <h2>Contact</h2>
+  <div class="gold-line"></div>
+
+  <p>📍 Taunggyi, Myanmar</p>
+  <p>📞 Phone / Viber / WhatsApp: <strong>09-XXXXXXXXX</strong></p>
+  <p>📷 Facebook: With You Photo Studio</p>
 </section>
 
 <footer>
-  © With You Photo Studio — Taunggyi, Myanmar  
+  © With You Photo Studio — Taunggyi
 </footer>
 
 <script>
-  function showEN(){
-    document.querySelectorAll('.en').forEach(e=>e.style.display='block');
-    document.querySelectorAll('.mm').forEach(e=>e.style.display='none');
-  }
-  function showMM(){
-    document.querySelectorAll('.en').forEach(e=>e.style.display='none');
-    document.querySelectorAll('.mm').forEach(e=>e.style.display='block');
-  }
+function filterGallery(category){
+  const images = document.querySelectorAll('.gallery img');
+  images.forEach(img => {
+    if(category === 'all' || img.dataset.cat === category){
+      img.style.display = 'block';
+    }else{
+      img.style.display = 'none';
+    }
+  });
+}
 </script>
 
 </body>
