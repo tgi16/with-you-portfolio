@@ -306,6 +306,45 @@ footer {
   .nav-links { display: none; } /* Simplified for this demo */
   nav { justify-content: center; }
 }
+
+/* --- CHAT BUTTONS --- */
+.chat-buttons{
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+
+.chat-btn{
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.chat-btn:hover{
+  transform: translateY(-4px);
+}
+
+/* Facebook */
+.chat-btn.fb{
+  background: #0084ff;
+}
+
+/* Viber */
+.chat-btn.viber{
+  background: #7360f2;
+}
+
 </style>
 </head>
 
@@ -562,6 +601,18 @@ window.addEventListener('load', () => {
     document.querySelector('.hero').classList.add('loaded');
 });
 </script>
+<!-- CHAT BUTTONS -->
+<div class="chat-buttons">
+  <!-- Facebook Messenger -->
+  <a href="https://m.me/wypstudio" target="_blank" class="chat-btn fb">
+    <i class="fab fa-facebook-messenger"></i>
+  </a>
+
+  <!-- Viber -->
+  <a href="viber://chat?number=959255521464" class="chat-btn viber">
+    <i class="fab fa-viber"></i>
+  </a>
+</div>
 
 </body>
 </html>
