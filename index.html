@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>With You Photo Studio | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#c9a24d;
+      --text:#222;
+      --muted:#777;
+      --bg:#ffffff;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:'Inter', sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.7;
+    }
+
+    header{
+      padding:60px 20px;
+      text-align:center;
+      border-bottom:1px solid #eee;
+    }
+
+    header h1{
+      font-family:'Playfair Display', serif;
+      font-size:42px;
+      margin:0;
+    }
+
+    header span{
+      color:var(--gold);
+    }
+
+    header p{
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .toggle{
+      margin-top:25px;
+    }
+
+    .toggle button{
+      background:none;
+      border:1px solid var(--gold);
+      color:var(--gold);
+      padding:6px 14px;
+      cursor:pointer;
+      margin:0 5px;
+      border-radius:20px;
+      font-size:14px;
+    }
+
+    section{
+      max-width:1000px;
+      margin:80px auto;
+      padding:0 20px;
+    }
+
+    h2{
+      font-family:'Playfair Display', serif;
+      font-size:30px;
+      margin-bottom:20px;
+    }
+
+    .gold-line{
+      width:60px;
+      height:3px;
+      background:var(--gold);
+      margin-bottom:30px;
+    }
+
+    .about p{
+      max-width:700px;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+    }
+
+    .gallery img{
+      width:100%;
+      border-radius:4px;
+    }
+
+    footer{
+      text-align:center;
+      padding:50px 20px;
+      border-top:1px solid #eee;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .mm{display:none;}
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>With You <span>Photo Studio</span></h1>
+  <p>Founder & Photographer — Taunggyi, Myanmar</p>
+
+  <div class="toggle">
+    <button onclick="showEN()">English</button>
+    <button onclick="showMM()">မြန်မာ</button>
+  </div>
+</header>
+
+<section class="about en">
+  <h2>About Me</h2>
+  <div class="gold-line"></div>
+  <p>
+    I am a photographer and studio founder based in Taunggyi, Myanmar.  
+    I specialize in wedding, pre-wedding, and portrait photography, focusing on emotional authenticity and clean, timeless color tones.
+  </p>
+  <p>
+    Through founding and running <strong>With You Photo Studio</strong>, I have developed hands-on experience in visual storytelling, client communication, and creative business management.
+  </p>
+</section>
+
+<section class="about mm">
+  <h2>ကျွန်တော်အကြောင်း</h2>
+  <div class="gold-line"></div>
+  <p>
+    ကျွန်တော်သည် တောင်ကြီးမြို့အခြေစိုက် Photographer တစ်ဦးဖြစ်ပြီး  
+    <strong>With You Photo Studio</strong> ကို တည်ထောင်လုပ်ကိုင်နေသူ ဖြစ်ပါသည်။
+  </p>
+  <p>
+    မင်္ဂလာဆောင်၊ Pre-wedding နှင့် Portrait ဓာတ်ပုံများကို  
+    သဘာဝအမူအရာနှင့် အချိန်ကြာကြာခံမယ့် Color tone များဖြင့် ရိုက်ကူးပါသည်။
+  </p>
+</section>
+
+<section class="en">
+  <h2>Selected Works</h2>
+  <div class="gold-line"></div>
+  <div class="gallery">
+    <img src="images/photo1.jpg">
+    <img src="images/photo2.jpg">
+    <img src="images/photo3.jpg">
+    <img src="images/photo4.jpg">
+    <img src="images/photo5.jpg">
+    <img src="images/photo6.jpg">
+  </div>
+</section>
+
+<section class="en">
+  <h2>Visual Philosophy</h2>
+  <div class="gold-line"></div>
+  <p>
+    My work emphasizes simplicity, emotional honesty, and consistency.  
+    I focus on natural expressions, balanced composition, and realistic skin tones, creating images that remain meaningful over time.
+  </p>
+</section>
+
+<footer>
+  © With You Photo Studio — Taunggyi, Myanmar  
+</footer>
+
+<script>
+  function showEN(){
+    document.querySelectorAll('.en').forEach(e=>e.style.display='block');
+    document.querySelectorAll('.mm').forEach(e=>e.style.display='none');
+  }
+  function showMM(){
+    document.querySelectorAll('.en').forEach(e=>e.style.display='none');
+    document.querySelectorAll('.mm').forEach(e=>e.style.display='block');
+  }
+</script>
+
+</body>
+</html>
