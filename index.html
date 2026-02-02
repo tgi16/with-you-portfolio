@@ -80,7 +80,7 @@ nav {
 /* --- HERO SECTION --- */
 .hero {
   height: 85vh;
-  /* Restored original hero image path */
+  /* Using local image */
   background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero.jpg');
   background-size: cover;
   background-position: center;
@@ -169,57 +169,6 @@ section {
   box-shadow: 20px 20px 0 var(--primary-gold);
 }
 
-/* --- PROCESS (New 3 Column Grid) --- */
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  text-align: center;
-}
-
-.process-item {
-  padding: 20px;
-}
-.process-item h3 {
-  color: var(--primary-gold);
-  margin-bottom: 15px;
-}
-
-/* --- TRUST / WHY US (New Grid) --- */
-.trust-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background: #f4f4f4;
-  padding: 15px 20px;
-  border-radius: 8px;
-  border-left: 4px solid var(--primary-gold);
-  transition: var(--transition);
-}
-
-.trust-item:hover {
-  transform: translateX(5px);
-  background: #fff;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.trust-item i {
-  color: var(--primary-gold);
-  font-size: 18px;
-}
-
-.trust-item p {
-  margin: 0;
-  font-weight: 500;
-  color: #444;
-}
-
 /* --- GALLERY --- */
 .gallery-controls {
   display: flex;
@@ -304,6 +253,147 @@ section {
   to { opacity: 1; transform: scale(1); }
 }
 
+/* --- SERVICES / PACKAGES (NEW) --- */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.package-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  border-top: 5px solid transparent;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.package-card:hover {
+  transform: translateY(-10px);
+  border-top-color: var(--primary-gold);
+}
+
+.package-card h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.package-card ul {
+  text-align: left;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.package-card li {
+  margin-bottom: 12px;
+  list-style: none;
+  position: relative;
+  padding-left: 25px;
+  color: #555;
+}
+
+.package-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-gold);
+  font-weight: bold;
+}
+
+/* --- PROCESS --- */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.process-item {
+  padding: 20px;
+}
+.process-item h3 {
+  color: var(--primary-gold);
+  margin-bottom: 15px;
+}
+
+/* --- TRUST --- */
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f4f4f4;
+  padding: 15px 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-gold);
+  transition: var(--transition);
+}
+
+.trust-item:hover {
+  transform: translateX(5px);
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.trust-item i {
+  color: var(--primary-gold);
+  font-size: 18px;
+}
+
+.trust-item p {
+  margin: 0;
+  font-weight: 500;
+  color: #444;
+}
+
+/* --- FAQ (NEW) --- */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.faq-question {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.faq-question i {
+  color: var(--primary-gold);
+}
+
+.faq-answer {
+  color: #666;
+  padding-left: 28px;
+}
+
 /* --- CONTACT --- */
 .contact-section {
   background: var(--dark-bg);
@@ -357,8 +447,8 @@ footer {
 @media (max-width: 768px) {
   .hero h1 { font-size: 36px; }
   .about-grid { grid-template-columns: 1fr; }
-  .about-img { display: none; /* simple fix for mobile layout */ }
-  .nav-links { display: none; } /* Simplified for this demo */
+  .about-img { display: none; }
+  .nav-links { display: none; }
   nav { justify-content: center; }
 }
 
@@ -391,15 +481,8 @@ footer {
   transform: translateY(-4px);
 }
 
-/* Facebook */
-.chat-btn.fb{
-  background: #0084ff;
-}
-
-/* Viber */
-.chat-btn.viber{
-  background: #7360f2;
-}
+.chat-btn.fb{ background: #0084ff; }
+.chat-btn.viber{ background: #7360f2; }
 
 </style>
 </head>
@@ -412,6 +495,7 @@ footer {
   <div class="nav-links">
     <a href="#home">Home</a>
     <a href="#about">About</a>
+    <a href="#services">Services</a> <!-- NEW LINK -->
     <a href="#gallery">Gallery</a>
     <a href="#contact">Contact</a>
   </div>
@@ -453,8 +537,58 @@ footer {
       </p>
     </div>
     <div class="about-img">
-      <!-- Replaced with placeholder since user didn't have a local image here in snippet. -->
-      
+      <!-- Placeholder since local image is not available in snippet -->
+      <img src="https://images.unsplash.com/photo-1554048612-387768052bf7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Camera Lens">
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / PACKAGES (NEW SECTION) -->
+<section id="services" style="background:#f9f9f9;">
+  <div class="section-title">
+    <h2>Services & Packages</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="packages-grid">
+    <!-- Pre-Wedding -->
+    <div class="package-card">
+      <h3>Pre-Wedding</h3>
+      <ul>
+        <li>Outdoor Shooting (Taunggyi/Inlay)</li>
+        <li>Unlimited Photos (Soft Copy)</li>
+        <li>20 Edited Photos</li>
+        <li>1 Big Frame Photo (20x30)</li>
+        <li>Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
+    </div>
+
+    <!-- Wedding Day -->
+    <div class="package-card" style="border-top-color:var(--primary-gold); transform:scale(1.02);">
+      <h3>Wedding Day</h3>
+      <div style="background:var(--primary-gold); color:white; display:inline-block; padding:3px 10px; border-radius:10px; font-size:12px; margin-bottom:15px;">Most Popular</div>
+      <ul>
+        <li>Full Ceremony Coverage</li>
+        <li>Candid & Formal Shots</li>
+        <li>Unlimited Soft Copies</li>
+        <li>Premium Photobook Album</li>
+        <li>Highlight Video (Optional)</li>
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Check Availability</a>
+    </div>
+
+    <!-- Portrait/Birthday -->
+    <div class="package-card">
+      <h3>Portrait / Birthday</h3>
+      <ul>
+        <li>1-2 Hours Session</li>
+        <li>Studio or Outdoor</li>
+        <li>Unlimited Soft Copies</li>
+        <li>10 Edited Photos</li>
+        <li>Concepts ဆွေးနွေးပေးခြင်း</li>
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
     </div>
   </div>
 </section>
@@ -466,7 +600,6 @@ footer {
     <div class="divider"></div>
   </div>
 
-  <!-- Filter Buttons -->
   <div class="gallery-controls">
     <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
     <button class="filter-btn" onclick="filterGallery('wedding-day', this)">Wedding Day</button>
@@ -475,12 +608,9 @@ footer {
     <button class="filter-btn" onclick="filterGallery('birthday', this)">Birthday</button>
   </div>
 
-  <!-- Gallery Grid -->
   <div class="gallery-grid">
-    
     <!-- Wedding Day -->
     <div class="gallery-item" data-cat="wedding-day">
-      <!-- Restored -->
       <img src="images/Wedding-01.jpg" alt="Wedding Day">
       <div class="overlay">
         <h3>Wedding Ceremony</h3>
@@ -488,7 +618,6 @@ footer {
       </div>
     </div>
     <div class="gallery-item" data-cat="wedding-day">
-       <!-- This was an external link in your original file too -->
       <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding Couple">
       <div class="overlay">
         <h3>Wedding Day</h3>
@@ -498,7 +627,6 @@ footer {
 
     <!-- Pre-Wedding -->
     <div class="gallery-item" data-cat="prewedding">
-      <!-- Restored -->
       <img src="images/preweddingout-01.jpg" alt="Pre Wedding">
       <div class="overlay">
         <h3>Pre-Wedding</h3>
@@ -506,7 +634,6 @@ footer {
       </div>
     </div>
     <div class="gallery-item" data-cat="prewedding">
-       <!-- Restored -->
       <img src="images/preweddingout-02.jpg" alt="Pre Wedding">
       <div class="overlay">
         <h3>Pre-Wedding</h3>
@@ -514,7 +641,6 @@ footer {
       </div>
     </div>
     <div class="gallery-item" data-cat="prewedding">
-       <!-- Restored -->
       <img src="images/preweddingin-01.jpg" alt="Pre Wedding 2">
       <div class="overlay">
         <h3>Pre-Wedding</h3>
@@ -524,7 +650,6 @@ footer {
 
     <!-- Portrait -->
     <div class="gallery-item" data-cat="portrait">
-      <!-- Restored & Syntax Fixed -->
       <img src="images/portrait-01.png" alt="Portrait">
       <div class="overlay">
         <h3>Portrait</h3>
@@ -534,18 +659,16 @@ footer {
 
     <!-- Birthday -->
     <div class="gallery-item" data-cat="birthday">
-      <!-- Restored -->
       <img src="images/Birthday-01.jpg" alt="Birthday">
       <div class="overlay">
         <h3>Birthday</h3>
         <p>Celebration</p>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- PROCESS (Redesigned) -->
+<!-- PROCESS -->
 <section>
   <div class="section-title">
     <h2>Our Process</h2>
@@ -555,31 +678,20 @@ footer {
   <div class="process-grid">
     <div class="process-item">
       <h3>1. Consultation</h3>
-      <p>
-        Client နှင့် ရိုက်ကူးလိုသည့် အမျိုးအစား၊ Concept၊ Date နှင့် Location များကို
-        အသေးစိတ်ညှိနှိုင်းဆွေးနွေးနိုင်ပါသည်။
-      </p>
+      <p>Client နှင့် ရိုက်ကူးလိုသည့် အမျိုးအစား၊ Concept၊ Date နှင့် Location များကို အသေးစိတ်ညှိနှိုင်းဆွေးနွေးနိုင်ပါသည်။</p>
     </div>
-
     <div class="process-item">
       <h3>2. Shooting Day</h3>
-      <p>
-        ရိုက်ကူးသည့်နေ့တွင် သဘာဝအမူအရာနှင့် Moment များကို အလေးထားပြီး
-        စိတ်အေးချမ်းစွာ Professional အနေနဲ့ ရိုက်ကူးပေးပါသည်။
-      </p>
+      <p>ရိုက်ကူးသည့်နေ့တွင် သဘာဝအမူအရာနှင့် Moment များကို အလေးထားပြီး စိတ်အေးချမ်းစွာ Professional အနေနဲ့ ရိုက်ကူးပေးပါသည်။</p>
     </div>
-
     <div class="process-item">
       <h3>3. Editing & Delivery</h3>
-      <p>
-        Color tone ကို သေချာညှိပြီး အရည်အသွေးမြင့် ဓာတ်ပုံများကို
-        အချိန်မီ ပေးပို့ပါသည်။
-      </p>
+      <p>Color tone ကို သေချာညှိပြီး အရည်အသွေးမြင့် ဓာတ်ပုံများကို အချိန်မီ ပေးပို့ပါသည်။</p>
     </div>
   </div>
 </section>
 
-<!-- TRUST (Redesigned) -->
+<!-- TRUST -->
 <section style="background:#fff;">
   <div class="section-title">
     <h2>Why Clients Choose Us</h2>
@@ -587,30 +699,12 @@ footer {
   </div>
 
   <div class="trust-grid">
-    <div class="trust-item">
-      <i class="fas fa-check-circle"></i>
-      <p>တောင်ကြီးမြို့အခြေစိုက် အတွေ့အကြုံရှိသော Studio</p>
-    </div>
-    <div class="trust-item">
-      <i class="fas fa-check-circle"></i>
-      <p>Concept ကို ကိုယ်တိုင်ညှိနှိုင်းပေးခြင်း</p>
-    </div>
-    <div class="trust-item">
-      <i class="fas fa-check-circle"></i>
-      <p>သဘာဝကျပြီး အချိန်ကြာကြာကြည့်လို့ရမည့် Photo များ</p>
-    </div>
-    <div class="trust-item">
-      <i class="fas fa-check-circle"></i>
-      <p>အချိန်မီ တာဝန်ယူ၍ ပုံများကို ပေးပို့ပေးခြင်း</p>
-    </div>
-    <div class="trust-item">
-      <i class="fas fa-check-circle"></i>
-      <p>စိတ်ရှည်ပြီး ယုံကြည်ရသော Serviceများ</p>
-    </div>
-    <div class="trust-item">
-      <i class="fas fa-check-circle"></i>
-      <p>Local Client များအတွက် အဆင်ပြေသော ဆက်သွယ်မှု</p>
-    </div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>တောင်ကြီးမြို့အခြေစိုက် အတွေ့အကြုံရှိသော Studio</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>Concept ကို ကိုယ်တိုင်ညှိနှိုင်းပေးခြင်း</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>သဘာဝကျပြီး အချိန်ကြာကြာကြည့်လို့ရမည့် Photo များ</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>အချိန်မီ တာဝန်ယူ၍ ပုံများကို ပေးပို့ပေးခြင်း</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>စိတ်ရှည်ပြီး ယုံကြည်ရသော Serviceများ</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>Local Client များအတွက် အဆင်ပြေသော ဆက်သွယ်မှု</p></div>
   </div>
 </section>
 
@@ -623,18 +717,53 @@ footer {
 
   <div style="max-width:800px;margin:0 auto; text-align:center;">
     <blockquote style="color:#666;margin-bottom:30px; font-style:italic;">
-      “With You Photo Studio က အရမ်းစိတ်ရှည်ပြီး
-      သဘာဝကျတဲ့ Moment တွေကို ဖမ်းယူပေးလို့
-      ကျွန်မတို့ မင်္ဂလာပွဲအတွက် အရမ်းကျေနပ်ပါတယ်။”
+      “With You Photo Studio က အရမ်းစိတ်ရှည်ပြီး သဘာဝကျတဲ့ Moment တွေကို ဖမ်းယူပေးလို့ ကျွန်မတို့ မင်္ဂလာပွဲအတွက် အရမ်းကျေနပ်ပါတယ်။”
       <br><strong style="color:var(--text-dark); font-style:normal; margin-top:10px; display:block;">— Wedding Client (Taunggyi)</strong>
     </blockquote>
-
     <blockquote style="color:#666; font-style:italic;">
-      “ပုံရိုက်တဲ့အချိန်မှာ စိတ်ဖိစီးမှုမရှိဘဲ
-      ကိုယ်လိုချင်တဲ့ပုံစံကို နားလည်ပေးတဲ့ Studio ဖြစ်လို့
-      အရမ်းယုံကြည်ပါတယ်။”
+      “ပုံရိုက်တဲ့အချိန်မှာ စိတ်ဖိစီးမှုမရှိဘဲ ကိုယ်လိုချင်တဲ့ပုံစံကို နားလည်ပေးတဲ့ Studio ဖြစ်လို့ အရမ်းယုံကြည်ပါတယ်။”
       <br><strong style="color:var(--text-dark); font-style:normal; margin-top:10px; display:block;">— Pre-Wedding Client</strong>
     </blockquote>
+  </div>
+</section>
+
+<!-- FAQ (NEW SECTION) -->
+<section style="background:#fff;">
+  <div class="section-title">
+    <h2>FAQ (မေးလေ့ရှိသောမေးခွန်းများ)</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="faq-container">
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="far fa-question-circle"></i>
+        ရက်ချိန်း (Booking) ကို ဘယ်လောက်ကြိုတင်ယူရမလဲ?
+      </div>
+      <div class="faq-answer">
+        မင်္ဂလာဆောင်ရက်များအတွက် အနည်းဆုံး ၁ လ မှ ၂ လခန့် ကြိုတင် Booking လုပ်ပေးပါရန် မေတ္တာရပ်ခံပါသည်။
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="far fa-question-circle"></i>
+        Raw ဖိုင်များ ပြန်ပေးပါသလား?
+      </div>
+      <div class="faq-answer">
+        ဟုတ်ကဲ့၊ ရိုက်ကူးထားသော Soft Copy (Raw/JPEG) အားလုံးကို ပြန်လည်ပေးအပ်ပါသည်။
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="far fa-question-circle"></i>
+        နယ်ဝေးရိုက်ကူးရေးများ လက်ခံပါသလား?
+      </div>
+      <div class="faq-answer">
+        လက်ခံပါသည်။ တောင်ကြီးမြို့အပြင် အင်းလေး၊ ကလော နှင့် အခြားမြို့များသို့လည်း လာရောက်ရိုက်ကူးပေးပါသည်။ (ခရီးစရိတ် သီးခြားရှိပါမည်)
+      </div>
+    </div>
   </div>
 </section>
 
@@ -646,45 +775,34 @@ footer {
   </div>
 
   <div class="contact-info">
-
-    <!-- LOCATION -->
-    <a class="contact-card" 
-       href="https://maps.app.goo.gl/kLYm3JEqPpNCpsnT8" 
-       target="_blank">
+    <a class="contact-card" href="https://maps.app.goo.gl/kLYm3JEqPpNCpsnT8" target="_blank">
       <i class="fas fa-map-marker-alt"></i>
       <h3>Location</h3>
       <p>Taunggyi, Myanmar</p>
     </a>
 
-    <!-- PHONE / VIBER -->
-    <a class="contact-card" 
-       href="tel:+959255521464">
+    <a class="contact-card" href="tel:+959255521464">
       <i class="fas fa-phone-alt"></i>
       <h3>Phone / Viber</h3>
       <p>09 255 521 464</p>
     </a>
 
-    <!-- SOCIAL MEDIA -->
     <div class="contact-card">
       <i class="fas fa-share-alt"></i>
       <h3>Social Media</h3>
-
       <p style="margin-bottom:10px;">
         <a href="https://www.facebook.com/wypstudio" target="_blank" style="display:flex; align-items:center; gap:10px; justify-content:center;">
           <i class="fab fa-facebook" style="font-size:20px; margin:0;"></i> Facebook
         </a>
       </p>
-
       <p>
         <a href="https://www.tiktok.com/@wypstudio" target="_blank" style="display:flex; align-items:center; gap:10px; justify-content:center;">
           <i class="fab fa-tiktok" style="font-size:20px; margin:0;"></i> TikTok
         </a>
       </p>
     </div>
-
   </div>
 </section>
-
 
 <footer>
   <p>&copy; 2026 With You Photo Studio. All Rights Reserved.</p>
@@ -694,12 +812,8 @@ footer {
 function filterGallery(category, btnElement) {
   const items = document.querySelectorAll('.gallery-item');
   const buttons = document.querySelectorAll('.filter-btn');
-
-  // Update active button state
   buttons.forEach(btn => btn.classList.remove('active'));
   btnElement.classList.add('active');
-
-  // Filter items
   items.forEach(item => {
     if (category === 'all' || item.getAttribute('data-cat') === category) {
       item.classList.remove('hide');
@@ -710,24 +824,16 @@ function filterGallery(category, btnElement) {
     }
   });
 }
-
-// Add animation keyframes for hero text on load
 window.addEventListener('load', () => {
     const hero = document.querySelector('.hero');
     if(hero) hero.classList.add('loaded');
 });
 </script>
+
 <!-- CHAT BUTTONS -->
 <div class="chat-buttons">
-  <!-- Facebook Messenger -->
-  <a href="https://m.me/wypstudio" target="_blank" class="chat-btn fb">
-    <i class="fab fa-facebook-messenger"></i>
-  </a>
-
-  <!-- Viber -->
-  <a href="viber://chat?number=959255521464" class="chat-btn viber">
-    <i class="fab fa-viber"></i>
-  </a>
+  <a href="https://m.me/wypstudio" target="_blank" class="chat-btn fb"><i class="fab fa-facebook-messenger"></i></a>
+  <a href="viber://chat?number=959255521464" class="chat-btn viber"><i class="fab fa-viber"></i></a>
 </div>
 
 </body>
