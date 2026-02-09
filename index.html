@@ -169,6 +169,16 @@ section {
   box-shadow: 20px 20px 0 var(--primary-gold);
 }
 
+/* --- VISUAL PHILOSOPHY (NEW) --- */
+.philosophy-text {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 18px;
+  color: #555;
+  line-height: 2;
+}
+
 /* --- GALLERY --- */
 .gallery-controls {
   display: flex;
@@ -253,7 +263,7 @@ section {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* --- SERVICES / PACKAGES (NEW) --- */
+/* --- SERVICES / PACKAGES --- */
 .packages-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -356,7 +366,7 @@ section {
   color: #444;
 }
 
-/* --- FAQ (NEW) --- */
+/* --- FAQ --- */
 .faq-container {
   max-width: 800px;
   margin: 0 auto;
@@ -407,7 +417,7 @@ section {
 .contact-info {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   margin-top: 40px;
   flex-wrap: wrap;
 }
@@ -416,10 +426,13 @@ section {
   background: rgba(255,255,255,0.05);
   padding: 30px;
   border-radius: 10px;
-  min-width: 250px;
+  width: 280px; /* Fixed width for better alignment */
   transition: var(--transition);
   text-decoration: none;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .contact-card:hover {
@@ -439,8 +452,26 @@ footer {
   background: #111;
   color: #777;
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px; /* Increased padding */
   font-size: 14px;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.footer-socials a {
+  color: #fff;
+  font-size: 24px;
+  transition: var(--transition);
+}
+
+.footer-socials a:hover {
+  color: var(--primary-gold);
+  transform: translateY(-3px);
 }
 
 /* --- MOBILE RESPONSIVE --- */
@@ -495,7 +526,7 @@ footer {
   <div class="nav-links">
     <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#services">Services</a> <!-- NEW LINK -->
+    <a href="#services">Services</a>
     <a href="#gallery">Gallery</a>
     <a href="#contact">Contact</a>
   </div>
@@ -543,7 +574,23 @@ footer {
   </div>
 </section>
 
-<!-- SERVICES / PACKAGES (NEW SECTION) -->
+<!-- VISUAL PHILOSOPHY (NEW SECTION) -->
+<section style="background-color: #fff;">
+  <div class="section-title">
+    <h2>Our Philosophy (ခံယူချက်)</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="philosophy-text">
+    <p>
+      "With You Photo Studio ၏ လက်ရာများသည် ရိုးရှင်းမှု၊ ရိုးသားသော ခံစားမှုများနှင့် တည်ငြိမ်မှုတို့ကို ဦးစားပေးပါသည်။ 
+      သဘာဝကျသော အမူအရာများ၊ ဟန်ချက်ညီသော ဖွဲ့စည်းပုံများနှင့် ကြည့်ရှု၍မရိုးနိုင်သော 
+      Natural Skin Tone များကို အထူးဂရုစိုက် ဖန်တီးထားပါသည်။"
+    </p>
+  </div>
+</section>
+
+<!-- SERVICES / PACKAGES (UPDATED BILINGUAL) -->
 <section id="services" style="background:#f9f9f9;">
   <div class="section-title">
     <h2>Services & Packages</h2>
@@ -555,26 +602,27 @@ footer {
     <div class="package-card">
       <h3>Outdoor Pre-Wedding</h3>
       <ul>
-        <li>Outdoor Shooting (Taunggyi/Inlay/Kalaw)</li>
-        <li>No Print Photos (Soft Copy)</li>
-        <li> Edited Photos</li>
-        <li>1 Big Frame Photo </li>
-        <li>Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
-        <li>Package အမျိုးမျိုးရှိပါသည်။ ဆက်သွယ်ပေးပါခင်ဗျာ။</li>
+        <li><strong>Location:</strong> Outdoor Shooting (Taunggyi/Inlay/Kalaw)</li>
+        <li><strong>Photos:</strong> Soft Copy Only (No Prints)</li>
+        <li><strong>Edit:</strong> Edited Photos Included</li>
+        <li><strong>Bonus:</strong> 1 Big Frame Photo</li>
+        <li><strong>MUA:</strong> Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
+        <li>Package အမျိုးမျိုးရှိပါသည်။ အသေးစိတ်ဆက်သွယ်မေးမြန်းနိုင်ပါသည်။</li>
       </ul>
       <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
     </div>
 
-    <!-- Indoor Pre-Wedding (NEW) -->
+    <!-- Indoor Pre-Wedding -->
     <div class="package-card">
       <h3>Indoor Pre-Wedding</h3>
+    <div style="background:var(--primary-gold); color:white; display:inline-block; padding:3px 10px; border-radius:10px; font-size:12px; margin-bottom:15px;">Most Popular</div>
       <ul>
-        <li>In-House Studio Shooting</li>
-        <li>No Print Photos (Soft Copy)</li>
-        <li> Edited Photos</li>
-        <li>1 Big Frame Photo </li>
-        <li>Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
-        
+        <li><strong>Location:</strong> In-House Studio Shooting</li>
+        <li><strong>Photos:</strong> Soft Copy Only (No Prints)</li>
+        <li><strong>Edit:</strong> Edited Photos Included</li>
+        <li><strong>Bonus:</strong> 1 Big Frame Photo</li>
+        <li><strong>MUA:</strong> Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
+        <li>Creative Lighting & Props စီစဉ်ပေးခြင်း</li>
       </ul>
       <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
     </div>
@@ -584,10 +632,10 @@ footer {
       <h3>Wedding Day</h3>
       <div style="background:var(--primary-gold); color:white; display:inline-block; padding:3px 10px; border-radius:10px; font-size:12px; margin-bottom:15px;">Most Popular</div>
       <ul>
-        <li>Full Ceremony Coverage</li>
-        <li>Candid & Formal Shots</li>
-        <li>Unlimited Soft Copies</li>
-        <li>Premium Big Frame Photo </li>
+        <li><strong>Coverage:</strong> Full Ceremony (မင်္ဂလာအခမ်းအနား မှတ်တမ်း)</li>
+        <li><strong>Style:</strong> Candid & Formal Shots</li>
+        <li><strong>Photos:</strong> Unlimited Soft Copies</li>
+        <li><strong>Bonus:</strong> Premium Big Frame Photo</li>
       </ul>
       <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Check Availability</a>
     </div>
@@ -596,10 +644,11 @@ footer {
     <div class="package-card">
       <h3>Portrait / Birthday</h3>
       <ul>
-        <li>1-2 Hours Session</li>
-        <li>Studio or Outdoor</li>
-        <li>No Print Soft Copies</li>
-        <li>10 Edited Photos</li>
+        <li><strong>Duration:</strong> 1-2 Hours Session</li>
+        <li><strong>Location:</strong> Studio or Outdoor</li>
+        <li><strong>Photos:</strong> No Print Soft Copies</li>
+        <li><strong>Edit:</strong> 10 Edited Photos</li>
+        <li>အမှတ်တရ ဓာတ်ပုံများအတွက် အထူးသင့်လျော်ပါသည်။</li>
       </ul>
       <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
     </div>
@@ -740,7 +789,7 @@ footer {
   </div>
 </section>
 
-<!-- FAQ (NEW SECTION) -->
+<!-- FAQ -->
 <section style="background:#fff;">
   <div class="section-title">
     <h2>FAQ (မေးလေ့ရှိသောမေးခွန်းများ)</h2>
@@ -780,7 +829,7 @@ footer {
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT (UPDATED) -->
 <section id="contact" class="contact-section">
   <div class="section-title">
     <h2>Contact Us</h2>
@@ -796,28 +845,26 @@ footer {
 
     <a class="contact-card" href="tel:+959255521464">
       <i class="fas fa-phone-alt"></i>
-      <h3>Phone / Viber</h3>
+      <h3>Phone / Viber / Telegram</h3>
       <p>09 255 521 464</p>
     </a>
 
-    <div class="contact-card">
-      <i class="fas fa-share-alt"></i>
-      <h3>Social Media</h3>
-      <p style="margin-bottom:10px;">
-        <a href="https://www.facebook.com/wypstudio" target="_blank" style="display:flex; align-items:center; gap:10px; justify-content:center;">
-          <i class="fab fa-facebook" style="font-size:20px; margin:0;"></i> Facebook
-        </a>
-      </p>
-      <p>
-        <a href="https://www.tiktok.com/@wypstudio" target="_blank" style="display:flex; align-items:center; gap:10px; justify-content:center;">
-          <i class="fab fa-tiktok" style="font-size:20px; margin:0;"></i> TikTok
-        </a>
-      </p>
-    </div>
+    <!-- Email Card Added -->
+    <a class="contact-card" href="mailto:example@gmail.com">
+      <i class="fas fa-envelope"></i>
+      <h3>Email</h3>
+      <p>wywpstudio@gmail.com</p>
+    </a>
   </div>
 </section>
 
+<!-- FOOTER (UPDATED ICONS) -->
 <footer>
+  <div class="footer-socials">
+    <a href="https://www.facebook.com/wypstudio" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@wypstudio" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
   <p>&copy; 2026 With You Photo Studio. All Rights Reserved.</p>
 </footer>
 
