@@ -1,909 +1,853 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt Gallery</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<meta charset="UTF-8">
+<title>With You Photo Studio | Taunggyi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Lucide Icons (Global) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<!-- Fonts: Playfair Display (Titles), Inter (Body), Padauk (Myanmar) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Padauk:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-    <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 20px;
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #475569;
-        }
-        .cursor-wait {
-            cursor: wait;
-        }
-    </style>
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Import Map for Modules -->
-    <script type="importmap">
-        {
-            "imports": {
-                "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
-                "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
-                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
-            }
-        }
-    </script>
+<style>
+/* --- VARIABLES --- */
+:root {
+  --primary-gold: #D4AF37;
+  --dark-bg: #1a1a1a;
+  --light-bg: #f9f9f9;
+  --text-dark: #333;
+  --text-light: #f4f4f4;
+  --transition: all 0.3s ease;
+}
+
+/* --- RESET & BASE --- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Padauk', sans-serif;
+  background: var(--light-bg);
+  color: var(--text-dark);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+
+/* --- NAVIGATION --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.logo span { color: var(--primary-gold); }
+
+.nav-links { display: flex; gap: 30px; }
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+.nav-links a:hover { color: var(--primary-gold); }
+
+/* --- HERO SECTION --- */
+.hero {
+  height: 85vh;
+  /* Using local image */
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 5vw, 70px);
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease;
+}
+
+.hero p {
+  font-size: 18px;
+  max-width: 600px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  animation: fadeInUp 1s ease 0.3s backwards;
+}
+
+.btn {
+  padding: 12px 35px;
+  background: var(--primary-gold);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  display: inline-block;
+  animation: fadeInUp 1s ease 0.6s backwards;
+}
+
+.btn:hover {
+  background: #b59025;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* --- SECTIONS COMMON --- */
+section {
+  padding: 80px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.divider {
+  width: 80px;
+  height: 3px;
+  background: var(--primary-gold);
+  margin: 0 auto;
+}
+
+/* --- ABOUT --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-text p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.about-img img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 20px 20px 0 var(--primary-gold);
+}
+
+/* --- GALLERY --- */
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: var(--transition);
+  color: #555;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--primary-gold);
+  border-color: var(--primary-gold);
+  color: #fff;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 350px;
+  background: #eee;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: var(--transition);
+  opacity: 0;
+}
+
+.gallery-item:hover .overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Animation for filtering */
+.gallery-item.hide {
+  display: none;
+}
+.gallery-item.show {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- SERVICES / PACKAGES (NEW) --- */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.package-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  border-top: 5px solid transparent;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.package-card:hover {
+  transform: translateY(-10px);
+  border-top-color: var(--primary-gold);
+}
+
+.package-card h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.package-card ul {
+  text-align: left;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.package-card li {
+  margin-bottom: 12px;
+  list-style: none;
+  position: relative;
+  padding-left: 25px;
+  color: #555;
+}
+
+.package-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-gold);
+  font-weight: bold;
+}
+
+/* --- PROCESS --- */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.process-item {
+  padding: 20px;
+}
+.process-item h3 {
+  color: var(--primary-gold);
+  margin-bottom: 15px;
+}
+
+/* --- TRUST --- */
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f4f4f4;
+  padding: 15px 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-gold);
+  transition: var(--transition);
+}
+
+.trust-item:hover {
+  transform: translateX(5px);
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.trust-item i {
+  color: var(--primary-gold);
+  font-size: 18px;
+}
+
+.trust-item p {
+  margin: 0;
+  font-weight: 500;
+  color: #444;
+}
+
+/* --- FAQ (NEW) --- */
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.faq-question {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.faq-question i {
+  color: var(--primary-gold);
+}
+
+.faq-answer {
+  color: #666;
+  padding-left: 28px;
+}
+
+/* --- CONTACT --- */
+.contact-section {
+  background: var(--dark-bg);
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.contact-section h2 { color: #fff; }
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 10px;
+  min-width: 250px;
+  transition: var(--transition);
+  text-decoration: none;
+  color: #fff;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.1);
+  color: var(--primary-gold);
+}
+
+.contact-card i {
+  font-size: 30px;
+  color: var(--primary-gold);
+  margin-bottom: 15px;
+}
+
+/* --- FOOTER --- */
+footer {
+  background: #111;
+  color: #777;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 36px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img { display: none; }
+  .nav-links { display: none; }
+  nav { justify-content: center; }
+}
+
+/* --- CHAT BUTTONS --- */
+.chat-buttons{
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+
+.chat-btn{
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.chat-btn:hover{
+  transform: translateY(-4px);
+}
+
+.chat-btn.fb{ background: #0084ff; }
+.chat-btn.viber{ background: #7360f2; }
+
+</style>
 </head>
+
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
-        import { initializeApp } from "firebase/app";
-        import { getAuth, onAuthStateChanged, signInWithCustomToken, signInWithEmailAndPassword, signOut } from "firebase/auth";
-        import { getFirestore, collection, addDoc, deleteDoc, updateDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
+<!-- NAVIGATION -->
+<nav>
+  <div class="logo">With You <span>Photo Studio</span></div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a> <!-- NEW LINK -->
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-        // --- Lucide Icons Wrapper for Standalone HTML ---
-        const createIconComponent = (iconName) => ({ size = 24, className, ...props }) => {
-            const iconData = lucide.icons[iconName];
-            if (!iconData) return null;
+<!-- HERO -->
+<section id="home" class="hero">
+  <p>
+တောင်ကြီးမှာ မင်္ဂလာဆောင်၊ Pre-Wedding၊ Birthday ပုံတွေကို
+နေ့တိုင်း အလုပ်လုပ်နေတဲ့ Photo Studio ပါ။
+</p>
+  <a href="#contact" class="btn">ဆက်သွယ်ကြည့်ပါ</a>
+  <br><br>
+  <p style="font-size: 14px; letter-spacing: 2px;">CAPTURING MOMENTS, CREATING MEMORIES</p>
+</section>
 
-            return (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={size}
-                    height={size}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={className}
-                    {...props}
-                >
-                    {iconData.map(([tag, attrs], index) => (
-                        React.createElement(tag, { ...attrs, key: index })
-                    ))}
-                </svg>
-            );
-        };
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-title">
+    <h2>ကျွန်တော်တို့အကြောင်း</h2>
+    <div class="divider"></div>
+  </div>
+  
+  <div class="about-grid">
+    <div class="about-text">
+      <h3>With You Photo Studio</h3>
+      <br>
+      <p>
+        <strong>With You Photo Studio</strong> သည် တောင်ကြီးမြို့အခြေစိုက် Professional Photography Studio ဖြစ်ပြီး 
+        မင်္ဂလာဆောင်၊ Pre-Wedding, Portrait နှင့် Birthday အမှတ်တရဓာတ်ပုံများကို အထူးပြု ရိုက်ကူးပေးနေပါသည်။
+      </p>
+      <p>
+        သဘာဝအမူအရာ (Candid Moments) များနှင့် စိတ်လှုပ်ရှားဖွယ် Moment များကို 
+        အချိန်ကြာကြာ တန်ဖိုးထားနိုင်မယ့် Color tone များဖြင့် ရိုက်ကူးပေးခြင်းကို 
+        ကျွန်တော်တို့၏ အဓိကအယူအဆအဖြစ် လက်ခံထားပါသည်။
+      </p>
+      <p style="color:var(--primary-gold); font-weight:600;">
+        "သင်တို့ရဲ့ အပျော်ရွှင်ရဆုံးအချိန်တွေကို မှတ်တမ်းတင်ပေးဖို့ ကျွန်တော်တို့ အသင့်ရှိပါတယ်။"
+      </p>
+    </div>
+    <div class="about-img">
+      <!-- Placeholder since local image is not available in snippet -->
+      <img src="images/logo.png">
+    </div>
+  </div>
+</section>
 
-        const Plus = createIconComponent('Plus');
-        const Trash2 = createIconComponent('Trash2');
-        const Copy = createIconComponent('Copy');
-        const ImageIcon = createIconComponent('Image'); 
-        const X = createIconComponent('X');
-        const Check = createIconComponent('Check');
-        const Search = createIconComponent('Search');
-        const LayoutGrid = createIconComponent('LayoutGrid');
-        const ListIcon = createIconComponent('List'); 
-        const Maximize2 = createIconComponent('Maximize2');
-        const SplitSquareHorizontal = createIconComponent('SplitSquareHorizontal');
-        const Star = createIconComponent('Star');
-        const Filter = createIconComponent('Filter');
-        const Moon = createIconComponent('Moon');
-        const Sun = createIconComponent('Sun');
-        const Loader2 = createIconComponent('Loader2');
-        const AlertCircle = createIconComponent('AlertCircle');
-        const LogOut = createIconComponent('LogOut');
-        const Mail = createIconComponent('Mail');
-        const Lock = createIconComponent('Lock');
-        const Users = createIconComponent('Users');
+<!-- SERVICES / PACKAGES (NEW SECTION) -->
+<section id="services" style="background:#f9f9f9;">
+  <div class="section-title">
+    <h2>Services & Packages</h2>
+    <div class="divider"></div>
+  </div>
 
-        // --- Firebase Configuration ---
-        const userConfig = {
-            apiKey: "AIzaSyBzOydmabqVRy84xE8ZusxE544dic6fnYQ",
-            authDomain: "prompt-used.firebaseapp.com",
-            projectId: "prompt-used",
-            storageBucket: "prompt-used.firebasestorage.app",
-            messagingSenderId: "18048108420",
-            appId: "1:18048108420:web:0e8b9537d1083daa81ffd1"
-        };
+  <div class="packages-grid">
+    <!-- Outdoor Pre-Wedding -->
+    <div class="package-card">
+      <h3>Outdoor Pre-Wedding</h3>
+      <ul>
+        <li>Outdoor Shooting (Taunggyi/Inlay/Kalaw)</li>
+        <li>No Print Photos (Soft Copy)</li>
+        <li> Edited Photos</li>
+        <li>1 Big Frame Photo </li>
+        <li>Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
+        <li>Package အမျိုးမျိုးရှိပါသည်။ ဆက်သွယ်ပေးပါခင်ဗျာ။</li>
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
+    </div>
 
-        const getEnvConfig = () => {
-            try {
-                if (typeof window !== 'undefined' && window.__firebase_config) {
-                    return JSON.parse(window.__firebase_config);
-                }
-            } catch (e) {
-                console.warn("Failed to parse system config, using fallback.");
-            }
-            return null;
-        };
-
-        const firebaseConfig = getEnvConfig() || userConfig;
+    <!-- Indoor Pre-Wedding (NEW) -->
+    <div class="package-card">
+      <h3>Indoor Pre-Wedding</h3>
+      <ul>
+        <li>In-House Studio Shooting</li>
+        <li>No Print Photos (Soft Copy)</li>
+        <li> Edited Photos</li>
+        <li>1 Big Frame Photo </li>
+        <li>Makeup Artist ချိတ်ဆက်ပေးခြင်း</li>
         
-        const getCurrentAppId = () => {
-            if (typeof window !== 'undefined' && window.__app_id) {
-                return window.__app_id;
-            }
-            return "prompt-gallery-app";
-        };
-        
-        const currentAppId = getCurrentAppId();
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
+    </div>
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+    <!-- Wedding Day -->
+    <div class="package-card" style="border-top-color:var(--primary-gold); transform:scale(1.02);">
+      <h3>Wedding Day</h3>
+      <div style="background:var(--primary-gold); color:white; display:inline-block; padding:3px 10px; border-radius:10px; font-size:12px; margin-bottom:15px;">Most Popular</div>
+      <ul>
+        <li>Full Ceremony Coverage</li>
+        <li>Candid & Formal Shots</li>
+        <li>Unlimited Soft Copies</li>
+        <li>Premium Big Frame Photo </li>
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Check Availability</a>
+    </div>
 
-        // --- SHARED CONFIGURATION ---
-        const MAIN_OWNER_UID = "yNcuisZqM4WHwN5RynPDaa1xmNV2"; // Main storage location
-        const ALLOWED_UIDS = [
-            "yNcuisZqM4WHwN5RynPDaa1xmNV2", // User 1
-            "S4hgKzepxJOX7TlleVoAzL6Yxal2"  // User 2
-        ];
+    <!-- Portrait/Birthday -->
+    <div class="package-card">
+      <h3>Portrait / Birthday</h3>
+      <ul>
+        <li>1-2 Hours Session</li>
+        <li>Studio or Outdoor</li>
+        <li>No Print Soft Copies</li>
+        <li>10 Edited Photos</li>
+      </ul>
+      <a href="#contact" class="btn" style="font-size:14px; padding:10px 25px;">Book Now</a>
+    </div>
+  </div>
+</section>
 
-        function App() {
-            // --- States ---
-            const [user, setUser] = React.useState(null);
-            const [prompts, setPrompts] = React.useState([]);
-            const [isLoading, setIsLoading] = React.useState(true);
-            const [authError, setAuthError] = React.useState(null); 
-            
-            // Login States
-            const [email, setEmail] = React.useState("");
-            const [password, setPassword] = React.useState("");
-            const [isSigningIn, setIsSigningIn] = React.useState(false);
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-title">
+    <h2>Our Works</h2>
+    <div class="divider"></div>
+  </div>
 
-            // UI States
-            const [isDarkMode, setIsDarkMode] = React.useState(false);
-            const [inputText, setInputText] = React.useState("");
-            const [selectedCategory, setSelectedCategory] = React.useState("General");
-            const [genPreviewUrl, setGenPreviewUrl] = React.useState(null); 
-            const [refPreviewUrl, setRefPreviewUrl] = React.useState(null); 
-            const [copiedId, setCopiedId] = React.useState(null);
-            const [selectedPrompt, setSelectedPrompt] = React.useState(null);
-            const [searchTerm, setSearchTerm] = React.useState("");
-            const [filterCategory, setFilterCategory] = React.useState("All");
-            const [showFavoritesOnly, setShowFavoritesOnly] = React.useState(false);
-            const [viewMode, setViewMode] = React.useState("list"); 
-            const [isUploading, setIsUploading] = React.useState(false);
+  <div class="gallery-controls">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('wedding-day', this)">Wedding Day</button>
+    <button class="filter-btn" onclick="filterGallery('prewedding', this)">Pre-Wedding</button>
+    <button class="filter-btn" onclick="filterGallery('portrait', this)">Portrait</button>
+    <button class="filter-btn" onclick="filterGallery('birthday', this)">Birthday</button>
+  </div>
 
-            const genInputRef = React.useRef(null);
-            const refInputRef = React.useRef(null);
+  <div class="gallery-grid">
+    <!-- Wedding Day -->
+    <div class="gallery-item" data-cat="wedding-day">
+      <img src="images/Wedding-01.jpg" alt="Wedding Day">
+      <div class="overlay">
+        <h3>Wedding Ceremony</h3>
+        <p>Beautiful Moments</p>
+      </div>
+    </div>
+    <div class="gallery-item" data-cat="wedding-day">
+      <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wedding Couple">
+      <div class="overlay">
+        <h3>Wedding Day</h3>
+        <p>Taunggyi</p>
+      </div>
+    </div>
 
-            const categories = ["General", "Portrait", "Landscape", "Sci-Fi", "Anime", "Art", "Logo", "3D"];
+    <!-- Pre-Wedding -->
+    <div class="gallery-item" data-cat="prewedding">
+      <img src="images/preweddingout-01.jpg" alt="Pre Wedding">
+      <div class="overlay">
+        <h3>Pre-Wedding</h3>
+        <p>Taunggyi Outdoor Session</p>
+      </div>
+    </div>
+    <div class="gallery-item" data-cat="prewedding">
+      <img src="images/preweddingout-02.jpg" alt="Pre Wedding">
+      <div class="overlay">
+        <h3>Pre-Wedding</h3>
+        <p>Inlay Outdoor Session</p>
+      </div>
+    </div>
+    <div class="gallery-item" data-cat="prewedding">
+      <img src="images/preweddingin-01.jpg" alt="Pre Wedding 2">
+      <div class="overlay">
+        <h3>Pre-Wedding</h3>
+        <p>Romantic Mood</p>
+      </div>
+    </div>
 
-            // --- Firebase Auth & Data Sync ---
-            
-            React.useEffect(() => {
-                const initAuth = async () => {
-                    const systemToken = typeof window !== 'undefined' ? window.__initial_auth_token : null;
-                    if (systemToken) {
-                        try {
-                            await signInWithCustomToken(auth, systemToken);
-                        } catch (error) {
-                            console.error("System Token Auth Failed:", error);
-                        }
-                    }
-                    setIsLoading(false);
-                };
-                initAuth();
-                
-                const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-                    if (currentUser) {
-                        if (ALLOWED_UIDS.includes(currentUser.uid)) {
-                            setUser(currentUser);
-                            setIsLoading(true);
-                            setAuthError(null);
-                        } else {
-                            console.warn("Unauthorized UID:", currentUser.uid);
-                            setAuthError("ဤအကောင့်သည် Shared Gallery ကို အသုံးပြုခွင့်မရှိပါ။");
-                            signOut(auth);
-                            setUser(null);
-                            setIsLoading(false);
-                        }
-                    } else {
-                        setUser(null);
-                        setPrompts([]); 
-                        setIsLoading(false);
-                    }
-                });
-                return () => unsubscribe();
-            }, []);
+    <!-- Portrait -->
+    <div class="gallery-item" data-cat="portrait">
+      <img src="images/portrait-01.png" alt="Portrait">
+      <div class="overlay">
+        <h3>Portrait</h3>
+        <p>Solo Shot</p>
+      </div>
+    </div>
 
-            React.useEffect(() => {
-                if (!user) {
-                    setIsLoading(false);
-                    return;
-                }
+    <!-- Birthday -->
+    <div class="gallery-item" data-cat="birthday">
+      <img src="images/Birthday-01.jpg" alt="Birthday">
+      <div class="overlay">
+        <h3>Birthday</h3>
+        <p>Celebration</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                // ALWAYS read from MAIN_OWNER_UID path (Shared Gallery)
-                const collectionRef = collection(db, 'artifacts', currentAppId, 'users', MAIN_OWNER_UID, 'prompts');
+<!-- PROCESS -->
+<section>
+  <div class="section-title">
+    <h2>Our Process</h2>
+    <div class="divider"></div>
+  </div>
 
-                const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-                    const fetchedPrompts = snapshot.docs.map(doc => {
-                        const data = doc.data();
-                        const createdAt = data.createdAt?.toDate ? data.createdAt.toDate() : new Date();
-                        return {
-                            ...data,
-                            id: doc.id,
-                            date: createdAt.toLocaleDateString(),
-                            timestamp: createdAt.getTime()
-                        };
-                    });
-                    
-                    fetchedPrompts.sort((a, b) => b.timestamp - a.timestamp);
-                    
-                    setPrompts(fetchedPrompts);
-                    setIsLoading(false);
-                    setAuthError(null);
-                }, (error) => {
-                    console.error("Firestore Error:", error);
-                    setAuthError("Data access error. (Rules များ ပြင်ဆင်ရန် လိုအပ်နိုင်ပါသည်)");
-                    setIsLoading(false);
-                });
+  <div class="process-grid">
+    <div class="process-item">
+      <h3>1. Consultation</h3>
+      <p>Client နှင့် ရိုက်ကူးလိုသည့် အမျိုးအစား၊ Concept၊ Date နှင့် Location များကို အသေးစိတ်ညှိနှိုင်းဆွေးနွေးနိုင်ပါသည်။</p>
+    </div>
+    <div class="process-item">
+      <h3>2. Shooting Day</h3>
+      <p>ရိုက်ကူးသည့်နေ့တွင် သဘာဝအမူအရာနှင့် Moment များကို အလေးထားပြီး စိတ်အေးချမ်းစွာ Professional အနေနဲ့ ရိုက်ကူးပေးပါသည်။</p>
+    </div>
+    <div class="process-item">
+      <h3>3. Editing & Delivery</h3>
+      <p>Color tone ကို သေချာညှိပြီး အရည်အသွေးမြင့် ဓာတ်ပုံများကို အချိန်မီ ပေးပို့ပါသည်။</p>
+    </div>
+  </div>
+</section>
 
-                return () => unsubscribe();
-            }, [user]);
+<!-- TRUST -->
+<section style="background:#fff;">
+  <div class="section-title">
+    <h2>Why Clients Choose Us</h2>
+    <div class="divider"></div>
+  </div>
 
-            // --- Handlers ---
+  <div class="trust-grid">
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>တောင်ကြီးမြို့အခြေစိုက် အတွေ့အကြုံရှိသော Studio</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>Concept ကို ကိုယ်တိုင်ညှိနှိုင်းပေးခြင်း</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>သဘာဝကျပြီး အချိန်ကြာကြာကြည့်လို့ရမည့် Photo များ</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>အချိန်မီ တာဝန်ယူ၍ ပုံများကို ပေးပို့ပေးခြင်း</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>စိတ်ရှည်ပြီး ယုံကြည်ရသော Serviceများ</p></div>
+    <div class="trust-item"><i class="fas fa-check-circle"></i><p>Local Client များအတွက် အဆင်ပြေသော ဆက်သွယ်မှု</p></div>
+  </div>
+</section>
 
-            const handleLogin = async (e) => {
-                e.preventDefault();
-                setIsSigningIn(true);
-                setAuthError(null);
-                try {
-                    await signInWithEmailAndPassword(auth, email, password);
-                } catch (error) {
-                    console.error("Login Failed:", error);
-                    setAuthError("အီးမေးလ် သို့မဟုတ် စကားဝှက် မှားယွင်းနေပါသည်။");
-                } finally {
-                    setIsSigningIn(false);
-                }
-            };
+<!-- REVIEWS -->
+<section>
+  <div class="section-title">
+    <h2>Client Reviews</h2>
+    <div class="divider"></div>
+  </div>
 
-            const handleLogout = async () => {
-                try {
-                    await signOut(auth);
-                } catch (error) {
-                    console.error("Logout Error:", error);
-                }
-            };
+  <div style="max-width:800px;margin:0 auto; text-align:center;">
+    <blockquote style="color:#666;margin-bottom:30px; font-style:italic;">
+      “With You Photo Studio က အရမ်းစိတ်ရှည်ပြီး သဘာဝကျတဲ့ Moment တွေကို ဖမ်းယူပေးလို့ ကျွန်မတို့ မင်္ဂလာပွဲအတွက် အရမ်းကျေနပ်ပါတယ်။”
+      <br><strong style="color:var(--text-dark); font-style:normal; margin-top:10px; display:block;">— Wedding Client (Taunggyi)</strong>
+    </blockquote>
+    <blockquote style="color:#666; font-style:italic;">
+      “ပုံရိုက်တဲ့အချိန်မှာ စိတ်ဖိစီးမှုမရှိဘဲ ကိုယ်လိုချင်တဲ့ပုံစံကို နားလည်ပေးတဲ့ Studio ဖြစ်လို့ အရမ်းယုံကြည်ပါတယ်။”
+      <br><strong style="color:var(--text-dark); font-style:normal; margin-top:10px; display:block;">— Pre-Wedding Client</strong>
+    </blockquote>
+  </div>
+</section>
 
-            const compressImage = (file) => {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = (event) => {
-                        const img = new Image();
-                        img.src = event.target.result;
-                        img.onload = () => {
-                            const canvas = document.createElement('canvas');
-                            const MAX_WIDTH = 800;
-                            const MAX_HEIGHT = 800;
-                            let width = img.width;
-                            let height = img.height;
+<!-- FAQ (NEW SECTION) -->
+<section style="background:#fff;">
+  <div class="section-title">
+    <h2>FAQ (မေးလေ့ရှိသောမေးခွန်းများ)</h2>
+    <div class="divider"></div>
+  </div>
 
-                            if (width > height) {
-                                if (width > MAX_WIDTH) {
-                                    height *= MAX_WIDTH / width;
-                                    width = MAX_WIDTH;
-                                }
-                            } else {
-                                if (height > MAX_HEIGHT) {
-                                    width *= MAX_HEIGHT / height;
-                                    height = MAX_HEIGHT;
-                                }
-                            }
+  <div class="faq-container">
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="far fa-question-circle"></i>
+        ရက်ချိန်း (Booking) ကို ဘယ်လောက်ကြိုတင်ယူရမလဲ?
+      </div>
+      <div class="faq-answer">
+        မင်္ဂလာဆောင်ရက်များအတွက် အနည်းဆုံး ၁ လ ခန့် ကြိုတင် Booking လုပ်ပေးပါရန် မေတ္တာရပ်ခံပါသည်။
+      </div>
+    </div>
 
-                            canvas.width = width;
-                            canvas.height = height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0, width, height);
-                            
-                            const dataUrl = canvas.toDataURL('image/jpeg', 0.7); 
-                            resolve(dataUrl);
-                        };
-                        img.onerror = (error) => reject(error);
-                    };
-                    reader.onerror = (error) => reject(error);
-                });
-            };
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="far fa-question-circle"></i>
+        Jpg ဖိုင်များ ပြန်ပေးပါသလား?
+      </div>
+      <div class="faq-answer">
+        ဟုတ်ကဲ့၊ ရိုက်ကူးထားသော Soft Copy No Edit (JPEG) အားလုံးကို ပြန်လည်ပေးအပ်ပါသည်။
+      </div>
+    </div>
 
-            const handleImageUpload = async (e, setPreview) => {
-                const file = e.target.files[0];
-                if (file) {
-                    setIsUploading(true);
-                    try {
-                        const compressedDataUrl = await compressImage(file);
-                        setPreview(compressedDataUrl);
-                    } catch (error) {
-                        console.error("Image compression error:", error);
-                        alert("ပုံတင်ရာတွင် အဆင်မပြေဖြစ်သွားပါသည်။");
-                    } finally {
-                        setIsUploading(false);
-                    }
-                }
-            };
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="far fa-question-circle"></i>
+        နယ်ဝေးရိုက်ကူးရေးများ လက်ခံပါသလား?
+      </div>
+      <div class="faq-answer">
+        လက်ခံပါသည်။ တောင်ကြီးမြို့အပြင် အင်းလေး၊ ကလော နှင့် အခြားမြို့များသို့လည်း လာရောက်ရိုက်ကူးပေးပါသည်။ (ခရီးစရိတ် သီးခြားရှိပါမည်)
+      </div>
+    </div>
+  </div>
+</section>
 
-            const handleAddPrompt = async () => {
-                if (!inputText.trim() || !user) return;
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-title">
+    <h2>Contact Us</h2>
+    <div class="divider" style="background:#fff;"></div>
+  </div>
 
-                const genSize = genPreviewUrl ? genPreviewUrl.length * 0.75 : 0;
-                const refSize = refPreviewUrl ? refPreviewUrl.length * 0.75 : 0;
-                
-                if (genSize + refSize > 950000) {
-                    alert("ပုံ Size ကြီးလွန်းနေပါသည်။ ပုံတစ်ပုံချင်းစီကို ပြန်လည်စစ်ဆေးပါ သို့မဟုတ် ပုံအသစ်ပြန်ရွေးပေးပါ။");
-                    return;
-                }
+  <div class="contact-info">
+    <a class="contact-card" href="https://maps.app.goo.gl/kLYm3JEqPpNCpsnT8" target="_blank">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3>Location</h3>
+      <p>Taunggyi, Myanmar</p>
+    </a>
 
-                const newPrompt = {
-                    text: inputText,
-                    generatedImage: genPreviewUrl || "https://placehold.co/600x400/e2e8f0/1e293b?text=No+Image",
-                    referenceImage: refPreviewUrl,
-                    category: selectedCategory,
-                    isFavorite: false,
-                    createdAt: serverTimestamp(),
-                    date: new Date().toLocaleDateString(),
-                    timestamp: Date.now(),
-                    author: user.uid // Track who added it
-                };
+    <a class="contact-card" href="tel:+959255521464">
+      <i class="fas fa-phone-alt"></i>
+      <h3>Phone / Viber</h3>
+      <p>09 255 521 464</p>
+    </a>
 
-                try {
-                    // Always write to MAIN_OWNER_UID path
-                    await addDoc(collection(db, 'artifacts', currentAppId, 'users', MAIN_OWNER_UID, 'prompts'), newPrompt);
-                    
-                    setInputText("");
-                    setSelectedCategory("General");
-                    setGenPreviewUrl(null);
-                    setRefPreviewUrl(null);
-                    if (genInputRef.current) genInputRef.current.value = "";
-                    if (refInputRef.current) refInputRef.current.value = "";
-                } catch (e) {
-                    console.error("Error adding document: ", e);
-                    if (e.code === 'resource-exhausted') {
-                        alert("Data ပမာဏ များလွန်းနေပါသည်။");
-                    } else if (e.code === 'permission-denied') {
-                        alert("Permission မရှိပါ။ (Firestore Rules တွင် UID နှစ်ခုလုံးကို Allow လုပ်ပေးရန်လိုအပ်ပါသည်)");
-                    } else {
-                        alert("သိမ်းဆည်းရာတွင် အဆင်မပြေဖြစ်နေပါသည်။");
-                    }
-                }
-            };
+    <div class="contact-card">
+      <i class="fas fa-share-alt"></i>
+      <h3>Social Media</h3>
+      <p style="margin-bottom:10px;">
+        <a href="https://www.facebook.com/wypstudio" target="_blank" style="display:flex; align-items:center; gap:10px; justify-content:center;">
+          <i class="fab fa-facebook" style="font-size:20px; margin:0;"></i> Facebook
+        </a>
+      </p>
+      <p>
+        <a href="https://www.tiktok.com/@wypstudio" target="_blank" style="display:flex; align-items:center; gap:10px; justify-content:center;">
+          <i class="fab fa-tiktok" style="font-size:20px; margin:0;"></i> TikTok
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
 
-            const handleDelete = async (id) => {
-                if (!user) return;
-                try {
-                    await deleteDoc(doc(db, 'artifacts', currentAppId, 'users', MAIN_OWNER_UID, 'prompts', id));
-                    if (selectedPrompt?.id === id) setSelectedPrompt(null);
-                } catch (e) {
-                    console.error("Error deleting document: ", e);
-                    alert("ဖျက်ပိုင်ခွင့် မရှိပါ။ (သို့မဟုတ် Rules မှားယွင်းနေပါသည်)");
-                }
-            };
+<footer>
+  <p>&copy; 2026 With You Photo Studio. All Rights Reserved.</p>
+</footer>
 
-            const toggleFavorite = async (id, e) => {
-                e.stopPropagation();
-                if (!user) return;
-                
-                const promptToUpdate = prompts.find(p => p.id === id);
-                if (!promptToUpdate) return;
+<script>
+function filterGallery(category, btnElement) {
+  const items = document.querySelectorAll('.gallery-item');
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  btnElement.classList.add('active');
+  items.forEach(item => {
+    if (category === 'all' || item.getAttribute('data-cat') === category) {
+      item.classList.remove('hide');
+      item.classList.add('show');
+    } else {
+      item.classList.remove('show');
+      item.classList.add('hide');
+    }
+  });
+}
+window.addEventListener('load', () => {
+    const hero = document.querySelector('.hero');
+    if(hero) hero.classList.add('loaded');
+});
+</script>
 
-                // Optimistic UI update
-                const updatedPrompts = prompts.map(p => 
-                    p.id === id ? { ...p, isFavorite: !p.isFavorite } : p
-                );
-                setPrompts(updatedPrompts);
-                if (selectedPrompt?.id === id) {
-                    setSelectedPrompt(prev => ({...prev, isFavorite: !prev.isFavorite}));
-                }
+<!-- CHAT BUTTONS -->
+<div class="chat-buttons">
+  <a href="https://m.me/wypstudio" target="_blank" class="chat-btn fb"><i class="fab fa-facebook-messenger"></i></a>
+  <a href="viber://chat?number=959255521464" class="chat-btn viber"><i class="fab fa-viber"></i></a>
+</div>
 
-                try {
-                    const promptRef = doc(db, 'artifacts', currentAppId, 'users', MAIN_OWNER_UID, 'prompts', id);
-                    await updateDoc(promptRef, {
-                        isFavorite: !promptToUpdate.isFavorite
-                    });
-                } catch (error) {
-                    console.error("Error updating favorite:", error);
-                }
-            };
-
-            const handleCopy = (text, id) => {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-9999px";
-                textArea.style.top = "0";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    const successful = document.execCommand('copy');
-                    if (successful) {
-                        setCopiedId(id);
-                        setTimeout(() => setCopiedId(null), 2000);
-                    }
-                } catch (err) {
-                    console.error('Fallback copy failed', err);
-                }
-                document.body.removeChild(textArea);
-            };
-
-            const filteredPrompts = prompts.filter(prompt => {
-                const matchesSearch = prompt.text.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesCategory = filterCategory === "All" || prompt.category === filterCategory;
-                const matchesFavorite = !showFavoritesOnly || prompt.isFavorite;
-                return matchesSearch && matchesCategory && matchesFavorite;
-            });
-
-            const theme = {
-                bg: isDarkMode ? 'bg-slate-950' : 'bg-slate-50',
-                text: isDarkMode ? 'text-slate-100' : 'text-slate-800',
-                textSec: isDarkMode ? 'text-slate-400' : 'text-slate-500',
-                cardBg: isDarkMode ? 'bg-slate-900' : 'bg-white',
-                cardBorder: isDarkMode ? 'border-slate-800' : 'border-slate-200',
-                inputBg: isDarkMode ? 'bg-slate-900' : 'bg-white',
-                inputBorder: isDarkMode ? 'border-slate-700' : 'border-slate-200',
-                headerText: isDarkMode ? 'text-indigo-400' : 'text-indigo-600',
-            };
-
-            // --- Render: Login View ---
-            if (!user && !isLoading) {
-                return (
-                    <div className={`min-h-screen font-sans flex items-center justify-center p-4 transition-colors duration-300 ${theme.bg} ${theme.text}`}>
-                        <div className={`w-full max-w-md p-8 rounded-2xl shadow-xl border ${theme.cardBg} ${theme.cardBorder}`}>
-                            <div className="text-center mb-8">
-                                <h1 className={`text-3xl font-bold mb-2 ${theme.headerText}`}>Prompt Gallery</h1>
-                                <p className={theme.textSec}>Shared Space Login</p>
-                            </div>
-
-                            {authError && (
-                                <div className="mb-4 p-3 rounded-lg bg-red-50 text-red-600 text-sm flex items-center gap-2">
-                                    <AlertCircle size={16} />
-                                    <span>{authError}</span>
-                                </div>
-                            )}
-
-                            <form onSubmit={handleLogin} className="flex flex-col gap-4">
-                                <div>
-                                    <label className={`block text-sm font-medium mb-1 ${theme.textSec}`}>Email</label>
-                                    <div className="relative">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                                        <input 
-                                            type="email" 
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className={`w-full pl-10 p-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 outline-none ${theme.inputBg} ${theme.inputBorder}`}
-                                            placeholder="name@example.com"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label className={`block text-sm font-medium mb-1 ${theme.textSec}`}>Password</label>
-                                    <div className="relative">
-                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                                        <input 
-                                            type="password" 
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            className={`w-full pl-10 p-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 outline-none ${theme.inputBg} ${theme.inputBorder}`}
-                                            placeholder="••••••••"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <button 
-                                    type="submit" 
-                                    disabled={isSigningIn}
-                                    className="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all disabled:opacity-50 flex justify-center gap-2"
-                                >
-                                    {isSigningIn && <Loader2 className="animate-spin" />}
-                                    {isSigningIn ? "ဝင်ရောက်နေသည်..." : "Login ဝင်မည်"}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                );
-            }
-
-            // --- Render: Main App ---
-            return (
-                <div className={`min-h-screen font-sans p-4 md:p-8 transition-colors duration-300 ${theme.bg} ${theme.text}`}>
-                    <div className="max-w-6xl mx-auto">
-                        
-                        <header className="mb-8 flex items-center justify-between">
-                            <button 
-                                onClick={handleLogout}
-                                className={`p-2 rounded-full transition-all ${isDarkMode ? 'bg-slate-800 hover:bg-slate-700 text-slate-400' : 'bg-white hover:bg-slate-100 text-slate-500 shadow-sm border border-slate-200'}`}
-                                title="Logout"
-                            >
-                                <LogOut size={20} />
-                            </button>
-
-                            <div className="text-center">
-                                <h1 className={`text-3xl font-bold mb-2 ${theme.headerText}`}>Prompt Gallery</h1>
-                                <div className={`flex items-center justify-center gap-2 ${theme.textSec}`}>
-                                    <Users size={16} />
-                                    <p>Shared Gallery</p>
-                                </div>
-                            </div>
-                            
-                            <button 
-                                onClick={() => setIsDarkMode(!isDarkMode)}
-                                className={`p-2.5 rounded-full transition-all ${isDarkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-600 hover:bg-slate-100 shadow-sm border border-slate-200'}`}
-                                title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                            >
-                                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-                            </button>
-                        </header>
-
-                        {/* Error Alert Banner */}
-                        {authError && (
-                            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
-                                <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
-                                <div>
-                                    <h3 className="text-red-800 font-semibold text-sm">Data Loading Error</h3>
-                                    <p className="text-red-600 text-xs mt-1">{authError}</p>
-                                </div>
-                            </div>
-                        )}
-
-                        <div className={`rounded-2xl shadow-sm p-6 mb-8 border transition-colors duration-300 ${theme.cardBg} ${theme.cardBorder}`}>
-                            <div className="flex flex-col gap-6">
-                                
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                                            Reference ပုံ (Optional)
-                                        </label>
-                                        <div 
-                                            onClick={() => !isUploading && refInputRef.current.click()}
-                                            className={`border-2 border-dashed rounded-xl h-32 flex flex-col items-center justify-center cursor-pointer transition-all relative overflow-hidden
-                                                ${refPreviewUrl 
-                                                ? 'border-indigo-500/50' 
-                                                : isDarkMode ? 'border-slate-700 hover:border-slate-600 hover:bg-slate-800' : 'border-slate-200 hover:border-indigo-300 hover:bg-slate-50'}
-                                                ${isUploading ? 'opacity-50 cursor-wait' : ''}
-                                            `}
-                                        >
-                                            {isUploading && !refPreviewUrl ? (
-                                                <div className="flex flex-col items-center">
-                                                    <Loader2 className="animate-spin text-indigo-500 mb-2" size={24} />
-                                                    <span className="text-xs text-indigo-500">Compressing...</span>
-                                                </div>
-                                            ) : refPreviewUrl ? (
-                                                <img src={refPreviewUrl} alt="Ref Preview" className="h-full w-full object-contain" />
-                                            ) : (
-                                                <div className="text-center p-2">
-                                                    <SplitSquareHorizontal className={`w-6 h-6 mx-auto mb-1 ${isDarkMode ? 'text-slate-600' : 'text-slate-400'}`} />
-                                                    <span className={`text-xs ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>Reference ပုံ</span>
-                                                </div>
-                                            )}
-                                            <input type="file" ref={refInputRef} onChange={(e) => handleImageUpload(e, setRefPreviewUrl)} accept="image/*" className="hidden" disabled={isUploading} />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                                            Prompt ရလဒ်ပုံ <span className="text-red-500">*</span>
-                                        </label>
-                                        <div 
-                                            onClick={() => !isUploading && genInputRef.current.click()}
-                                            className={`border-2 border-dashed rounded-xl h-32 flex flex-col items-center justify-center cursor-pointer transition-all relative overflow-hidden
-                                                ${genPreviewUrl 
-                                                ? 'border-indigo-500' 
-                                                : isDarkMode ? 'border-slate-700 hover:border-slate-600 hover:bg-slate-800' : 'border-slate-300 hover:border-indigo-400 hover:bg-slate-50'}
-                                                ${isUploading ? 'opacity-50 cursor-wait' : ''}
-                                            `}
-                                        >
-                                            {isUploading && !genPreviewUrl ? (
-                                                <div className="flex flex-col items-center">
-                                                    <Loader2 className="animate-spin text-indigo-500 mb-2" size={24} />
-                                                    <span className="text-xs text-indigo-500">Compressing...</span>
-                                                </div>
-                                            ) : genPreviewUrl ? (
-                                                <img src={genPreviewUrl} alt="Generated Preview" className="h-full w-full object-contain" />
-                                            ) : (
-                                                <div className="text-center p-2">
-                                                    <ImageIcon className={`w-6 h-6 mx-auto mb-1 ${isDarkMode ? 'text-slate-600' : 'text-slate-400'}`} />
-                                                    <span className={`text-xs ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>ရလဒ်ပုံ</span>
-                                                </div>
-                                            )}
-                                            <input type="file" ref={genInputRef} onChange={(e) => handleImageUpload(e, setGenPreviewUrl)} accept="image/*" className="hidden" disabled={isUploading} />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-3">
-                                    <div className="flex gap-2 items-center">
-                                        <select 
-                                            value={selectedCategory}
-                                            onChange={(e) => setSelectedCategory(e.target.value)}
-                                            className={`p-2 rounded-lg border text-sm focus:ring-2 focus:ring-indigo-500 outline-none ${theme.inputBg} ${theme.inputBorder} ${theme.text}`}
-                                        >
-                                            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                                        </select>
-                                        <span className={`text-xs ${theme.textSec}`}>Category ရွေးရန်</span>
-                                    </div>
-
-                                    <textarea
-                                        value={inputText}
-                                        onChange={(e) => setInputText(e.target.value)}
-                                        placeholder="ဒီပုံအတွက် သုံးထားတဲ့ Prompt ကို ရေးပါ..."
-                                        className={`w-full p-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none h-20 resize-none text-sm font-mono transition-colors
-                                            ${theme.inputBg} ${theme.inputBorder} ${theme.text} placeholder:text-slate-500
-                                        `}
-                                    />
-                                    <button
-                                        onClick={handleAddPrompt}
-                                        disabled={!inputText.trim() || isUploading}
-                                        className={`w-full py-2.5 rounded-xl flex items-center justify-center gap-2 font-semibold transition-all text-sm
-                                            ${inputText.trim() && !isUploading
-                                                ? 'bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-md transform hover:-translate-y-0.5' 
-                                                : `${isDarkMode ? 'bg-slate-800 text-slate-600' : 'bg-slate-200 text-slate-400'} cursor-not-allowed`}
-                                        `}
-                                    >
-                                        {isUploading ? <Loader2 className="animate-spin" size={18} /> : <Plus size={18} />}
-                                        <span>သိမ်းဆည်းမည်</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`flex flex-col lg:flex-row justify-between items-center gap-4 mb-6 sticky top-2 z-10 backdrop-blur-md py-3 px-4 rounded-2xl border shadow-sm transition-colors duration-300
-                            ${isDarkMode ? 'bg-slate-900/90 border-slate-700' : 'bg-slate-50/95 border-white/50'}
-                        `}>
-                            <div className="relative w-full lg:w-96">
-                                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 ${theme.textSec}`} size={18} />
-                                <input
-                                    type="text"
-                                    placeholder="Prompt များ ရှာရန်..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className={`w-full pl-10 pr-4 py-2 rounded-xl border focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-sm shadow-sm transition-colors
-                                        ${isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder:text-slate-500' : 'bg-white border-slate-200 text-slate-800'}
-                                    `}
-                                />
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-end">
-                                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border shadow-sm transition-colors ${theme.cardBg} ${theme.cardBorder}`}>
-                                    <Filter size={14} className={theme.textSec} />
-                                    <select 
-                                        value={filterCategory}
-                                        onChange={(e) => setFilterCategory(e.target.value)}
-                                        className={`text-sm bg-transparent border-none outline-none cursor-pointer min-w-[80px] ${theme.textSec}`}
-                                    >
-                                        <option value="All">All Categories</option>
-                                        {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                                    </select>
-                                </div>
-
-                                <button
-                                    onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-sm transition-all shadow-sm
-                                        ${showFavoritesOnly 
-                                            ? 'bg-amber-500/10 border-amber-500/30 text-amber-500' 
-                                            : `${theme.cardBg} ${theme.cardBorder} ${theme.textSec} hover:bg-opacity-80`}
-                                    `}
-                                >
-                                    <Star size={14} fill={showFavoritesOnly ? "currentColor" : "none"} />
-                                    <span>Favorites</span>
-                                </button>
-
-                                <div className={`flex rounded-xl p-1 border shadow-sm ml-2 ${theme.cardBg} ${theme.cardBorder}`}>
-                                    <button 
-                                        onClick={() => setViewMode('grid')} 
-                                        className={`p-1.5 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-indigo-500/10 text-indigo-500' : `${theme.textSec} hover:bg-slate-100/10`}`}
-                                        title="Grid View"
-                                    >
-                                        <LayoutGrid size={16} />
-                                    </button>
-                                    <button 
-                                        onClick={() => setViewMode('list')} 
-                                        className={`p-1.5 rounded-lg transition-all ${viewMode === 'list' ? 'bg-indigo-500/10 text-indigo-500' : `${theme.textSec} hover:bg-slate-100/10`}`}
-                                        title="List View"
-                                    >
-                                        <ListIcon size={16} />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {isLoading && (
-                            <div className="flex justify-center py-12">
-                                <Loader2 className={`animate-spin ${theme.textSec}`} size={32} />
-                            </div>
-                        )}
-
-                        {!isLoading && (
-                            <div className={viewMode === 'grid' 
-                                ? "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4" 
-                                : "flex flex-col gap-3" 
-                            }>
-                                {filteredPrompts.map((item) => (
-                                    viewMode === 'grid' ? (
-                                        <div 
-                                            key={item.id} 
-                                            className={`rounded-xl shadow-sm border overflow-hidden transition-all group cursor-pointer aspect-square relative
-                                                ${isDarkMode ? 'bg-slate-800 border-slate-700 hover:border-indigo-500/50' : 'bg-white border-slate-200 hover:shadow-md hover:border-indigo-300'}
-                                            `}
-                                            onClick={() => setSelectedPrompt(item)}
-                                        >
-                                            <img src={item.generatedImage} alt="Generated result" className="w-full h-full object-cover" />
-                                            
-                                            <div className="absolute top-1 left-1 right-1 flex justify-between items-start pointer-events-none">
-                                                <span className="bg-black/50 backdrop-blur-sm px-1.5 py-0.5 rounded text-[9px] text-white font-medium border border-white/10">
-                                                    {item.category || "General"}
-                                                </span>
-
-                                                <div className="flex gap-1">
-                                                    {item.referenceImage && (
-                                                    <span className="bg-black/50 backdrop-blur-sm p-1 rounded-full text-white">
-                                                        <SplitSquareHorizontal size={8} />
-                                                    </span>
-                                                    )}
-                                                    {item.isFavorite && (
-                                                    <span className="bg-amber-400 p-1 rounded-full text-white shadow-sm">
-                                                        <Star size={8} fill="currentColor" />
-                                                    </span>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                                        </div>
-                                    ) : (
-                                        <div 
-                                            key={item.id} 
-                                            onClick={() => setSelectedPrompt(item)}
-                                            className={`rounded-xl shadow-sm border p-3 flex gap-4 items-center transition-all cursor-pointer group
-                                                ${isDarkMode ? 'bg-slate-900 border-slate-800 hover:border-indigo-500/30' : 'bg-white border-slate-200 hover:shadow-md hover:border-indigo-200'}
-                                            `}
-                                        >
-                                            <div className={`w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden relative border ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-100'}`}>
-                                                <img src={item.generatedImage} alt="Thumbnail" className="w-full h-full object-cover" />
-                                                {item.referenceImage && (
-                                                    <div className="absolute bottom-0 right-0 bg-indigo-600 p-1 rounded-tl-md">
-                                                        <SplitSquareHorizontal size={10} className="text-white" />
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <div className="flex-grow min-w-0 flex flex-col justify-center h-full gap-1">
-                                                <div className="flex items-center gap-2 mb-0.5">
-                                                    <span className={`text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded border 
-                                                        ${isDarkMode ? 'bg-indigo-900/30 text-indigo-300 border-indigo-500/20' : 'text-indigo-500 bg-indigo-50 border-indigo-100'}
-                                                    `}>
-                                                        {item.category || "General"}
-                                                    </span>
-                                                    <span className={`text-xs ${theme.textSec}`}>{item.date}</span>
-                                                </div>
-                                                <p className={`text-sm font-mono truncate w-full transition-colors ${isDarkMode ? 'text-slate-300 group-hover:text-indigo-400' : 'text-slate-700 group-hover:text-indigo-600'}`}>
-                                                    {item.text}
-                                                </p>
-                                            </div>
-
-                                            <div className={`flex items-center gap-2 ${isDarkMode ? 'text-slate-600' : 'text-slate-300'}`}>
-                                                <button 
-                                                    onClick={(e) => toggleFavorite(item.id, e)}
-                                                    className={`p-1.5 rounded-full hover:bg-opacity-10 transition-colors ${item.isFavorite ? 'text-amber-400' : 'hover:text-amber-400 hover:bg-slate-500'}`}
-                                                    title="Add to Favorites"
-                                                >
-                                                    <Star size={18} fill={item.isFavorite ? "currentColor" : "none"} />
-                                                </button>
-                                                <div className="group-hover:text-indigo-400 px-1">
-                                                    <Maximize2 size={16} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                ))}
-                            </div>
-                        )}
-
-                        {selectedPrompt && (
-                            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-                                <div className={`rounded-3xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row relative animate-in zoom-in-95 duration-200 ${isDarkMode ? 'bg-slate-900' : 'bg-white'}`}>
-                                    
-                                    <button 
-                                        onClick={() => setSelectedPrompt(null)}
-                                        className="absolute top-4 right-4 z-10 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full backdrop-blur-md transition-colors"
-                                    >
-                                        <X size={20} />
-                                    </button>
-
-                                    <div className={`flex-1 overflow-y-auto custom-scrollbar p-6 flex flex-col gap-4 ${!selectedPrompt.referenceImage ? 'justify-center' : ''} ${isDarkMode ? 'bg-black/50' : 'bg-slate-900'}`}>
-                                        
-                                        {/* Generated Image - Primary */}
-                                        <div className="flex-1 flex flex-col min-h-[60%]">
-                                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Generated Result</span>
-                                            <img 
-                                                src={selectedPrompt.generatedImage} 
-                                                alt="Generated" 
-                                                className="w-full h-full object-contain rounded-lg shadow-lg bg-slate-800 ring-1 ring-white/10" 
-                                            />
-                                        </div>
-
-                                        {/* Reference Image - Secondary */}
-                                        {selectedPrompt.referenceImage && (
-                                            <div className="h-40 shrink-0 flex flex-col pt-4 border-t border-slate-700/50">
-                                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 px-1">Original Reference</span>
-                                                <img 
-                                                    src={selectedPrompt.referenceImage} 
-                                                    alt="Reference" 
-                                                    className="w-full h-full object-contain rounded-lg shadow-sm opacity-60 hover:opacity-100 transition-opacity bg-slate-800/50" 
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    <div className={`w-full md:w-[400px] p-6 flex flex-col ${isDarkMode ? 'bg-slate-900 text-slate-200' : 'bg-white text-slate-800'}`}>
-                                        <div className="flex-grow overflow-y-auto">
-                                            <div className="flex justify-between items-start mb-1">
-                                                <h3 className="text-xl font-bold">Prompt Details</h3>
-                                                <button 
-                                                    onClick={(e) => toggleFavorite(selectedPrompt.id, e)}
-                                                    className={`p-1 rounded-full transition-colors ${selectedPrompt.isFavorite ? 'text-amber-400' : `${isDarkMode ? 'text-slate-600 hover:text-amber-400 hover:bg-slate-800' : 'text-slate-300 hover:text-amber-400 hover:bg-slate-50'}`}`}
-                                                >
-                                                    <Star size={24} fill={selectedPrompt.isFavorite ? "currentColor" : "none"} />
-                                                </button>
-                                            </div>
-                                            
-                                            <div className="flex gap-2 mb-6">
-                                                <span className={`px-2 py-0.5 rounded text-xs font-medium ${isDarkMode ? 'bg-indigo-900/50 text-indigo-300' : 'bg-indigo-100 text-indigo-700'}`}>
-                                                    {selectedPrompt.category || "General"}
-                                                </span>
-                                                <p className={`text-sm flex items-center ${theme.textSec}`}>{selectedPrompt.date}</p>
-                                            </div>
-                                            
-                                            <div className={`p-5 rounded-xl border shadow-inner ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-100'}`}>
-                                                <p className={`text-sm font-mono leading-relaxed whitespace-pre-wrap select-all ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                                                    {selectedPrompt.text}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className={`mt-6 pt-6 border-t flex flex-col gap-3 ${isDarkMode ? 'border-slate-800' : 'border-slate-100'}`}>
-                                            <button 
-                                                onClick={() => handleCopy(selectedPrompt.text, selectedPrompt.id)}
-                                                className={`w-full py-3.5 rounded-xl flex items-center justify-center gap-2 font-medium transition-all
-                                                    ${copiedId === selectedPrompt.id 
-                                                        ? 'bg-green-600 text-white' 
-                                                        : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md hover:shadow-lg'}
-                                                `}
-                                            >
-                                                {copiedId === selectedPrompt.id ? <Check size={18} /> : <Copy size={18} />}
-                                                {copiedId === selectedPrompt.id ? 'Copied to Clipboard!' : 'Copy Prompt'}
-                                            </button>
-
-                                            <button 
-                                                onClick={() => handleDelete(selectedPrompt.id)}
-                                                className={`w-full py-3.5 rounded-xl flex items-center justify-center gap-2 font-medium transition-colors
-                                                    ${isDarkMode ? 'text-red-400 hover:bg-red-900/20' : 'text-red-500 hover:bg-red-50'}
-                                                `}
-                                            >
-                                                <Trash2 size={18} /> Delete Entry
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
 </body>
 </html>
